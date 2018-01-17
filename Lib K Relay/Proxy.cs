@@ -17,6 +17,7 @@ namespace Lib_K_Relay
     public delegate void PacketHandler(Client client, Packet packet);
     public delegate void GenericPacketHandler<T>(Client client, T packet) where T : Packet;
     public delegate void CommandHandler(Client client, string command, string[] args);
+	public delegate void StealthStateHandler(bool enabled);
 
     public class Proxy
     {
@@ -27,6 +28,7 @@ namespace Lib_K_Relay
         public event ConnectionHandler ClientDisconnected;
         public event PacketHandler ServerPacketRecieved;
         public event PacketHandler ClientPacketRecieved;
+		public event StealthStateHandler StealthStateChanged;
 
         public static string DefaultServer = "54.241.208.233"; // USWest
 
@@ -46,6 +48,17 @@ namespace Lib_K_Relay
 
             new StateManager().Attach(this);
             new ReconnectHandler().Attach(this);
+
+            // Toggle stealth state
+            HookCommand("stealth", (proxy, cmd, args) =>
+            {
+                bool newState = !StealthConfig.Default.StealthEnabled;
+
+                StealthConfig.Default.StealthEnabled = newState;
+                StealthConfig.Default.Save();
+
+                StealthStateChanged?.Invoke(newState);
+            });
         }
 
         /// <summary>

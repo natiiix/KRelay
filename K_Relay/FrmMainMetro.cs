@@ -29,8 +29,12 @@ namespace K_Relay
             InitializeComponent();
             tabMain.SelectedIndex = 0;
             Console.SetOut(new MetroTextBoxStreamWriter(tbxLog));
-        }
 
+            if (StealthConfig.Default.StealthEnabled)
+            {
+                Shown += (sender, e) => Hide();
+            }
+        }
 
         private async void FrmMainMetro_Load(object sender, EventArgs e)
         {
@@ -44,12 +48,13 @@ namespace K_Relay
             _proxy = new Proxy();
             _proxy.ProxyListenStarted += _ => SetStatus("Running", Color.Green);
             _proxy.ProxyListenStopped += _ => SetStatus("Stopped", Color.Red);
+            _proxy.StealthStateChanged += enabled => Invoke(new Action(() => Visible = !enabled));
             InitPlugins();
 
-			if (GameData.Servers.Map.Where(s => s.Value.Name == (string)lstServers.SelectedItem).Any())
-				Proxy.DefaultServer = GameData.Servers.ByName((string)lstServers.SelectedItem).Address;
-			else
-				PluginUtils.Log("K Relay", "Default server wasn't found, using USWest.");
+            if (GameData.Servers.Map.Where(s => s.Value.Name == (string)lstServers.SelectedItem).Any())
+                Proxy.DefaultServer = GameData.Servers.ByName((string)lstServers.SelectedItem).Address;
+            else
+                PluginUtils.Log("K Relay", "Default server wasn't found, using USWest.");
 
             PluginUtils.Log("K Relay", "Initialization complete.");
 

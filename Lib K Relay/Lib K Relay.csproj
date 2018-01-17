@@ -171,6 +171,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StealthConfig.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>StealthConfig.settings</DependentUpon>
+    </Compile>
     <Compile Include="Utilities\FrmGenericSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,7 +204,12 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\Packets.xml" />
+    <None Include="StealthConfig.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>StealthConfig.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Tiles.xml" />
