@@ -121,6 +121,7 @@ namespace Lib_K_Relay.Networking
                     reconnect.IsFromArena = false;
                     reconnect.Key = new byte[0];
                     reconnect.KeyTime = 0;
+					reconnect.Stats = string.Empty;
                     SendReconnect(client, reconnect);
                 }
                 else
