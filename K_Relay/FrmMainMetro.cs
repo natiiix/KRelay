@@ -38,6 +38,8 @@ namespace K_Relay
 
         private async void FrmMainMetro_Load(object sender, EventArgs e)
         {
+            ReconnectHandler.ChangeDefault += ChangeServer;
+
             await Task.Run(() =>
             {
                 GameData.Load();

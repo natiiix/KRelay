@@ -22,9 +22,9 @@ namespace Lib_K_Relay.Networking
             proxy.HookPacket<ReconnectPacket>(OnReconnect);
             proxy.HookPacket<HelloPacket>(OnHello);
 
-            proxy.HookCommand("con", OnConnectCommand);
+            //proxy.HookCommand("con", OnConnectCommand); - Crazy Client overrides this anways
             proxy.HookCommand("connect", OnConnectCommand);
-            //proxy.HookCommand("server", OnConnectCommand);
+            proxy.HookCommand("serv", OnConnectCommand);
             proxy.HookCommand("recon", OnReconCommand);
             proxy.HookCommand("drecon", OnDreconCommand);
         }
@@ -107,12 +107,17 @@ namespace Lib_K_Relay.Networking
             packet.Port = 2050;
         }
 
+        public static event ChangeServerHandler ChangeDefault;
+
+        public delegate void ChangeServerHandler(string Server);
+
         private void OnConnectCommand(Client client, string command, string[] args)
         {
             if (args.Length == 1)
             {
                 if (GameData.GameData.Servers.Map.ContainsKey(args[0].ToUpper()))
                 {
+                    ChangeDefault(GameData.GameData.Servers.ByID(args[0].ToUpper()).Name);
                     ReconnectPacket reconnect = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
                     reconnect.Host = GameData.GameData.Servers.ByID(args[0].ToUpper()).Address;
                     reconnect.Port = 2050;

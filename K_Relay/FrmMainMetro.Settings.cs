@@ -47,6 +47,12 @@ namespace K_Relay
             m_themeManager.Theme = (MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle), (string)themeCombobox.SelectedItem, true);
         }
 
+        public static void ChangeServer(string Server)
+        {
+            Config.Default.DefaultServerName = Server;
+            Config.Default.Save();
+        }
+
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
             Config.Default.StartProxyByDefault = tglStartByDefault.Checked;
@@ -61,13 +67,13 @@ namespace K_Relay
         private class FixedStyleManager
         {
             public event EventHandler OnThemeChanged;
+
             public event EventHandler OnStyleChanged;
 
             private MetroStyleManager m_manager;
 
             private MetroColorStyle m_colorStyle;
             private MetroThemeStyle m_themeStyle;
-
 
             public FixedStyleManager(MetroForm form)
             {
