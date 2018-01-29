@@ -1,6 +1,7 @@
 ﻿using Lib_K_Relay.Networking.Packets;
 using Lib_K_Relay.Networking.Packets.Client;
 using Lib_K_Relay.Networking.Packets.Server;
+using Lib_K_Relay.GameData.DataStructures;
 using Lib_K_Relay.Utilities;
 using System;
 using System.Collections.Generic;
@@ -115,11 +116,17 @@ namespace Lib_K_Relay.Networking
         {
             if (args.Length == 1)
             {
-                if (GameData.GameData.Servers.Map.ContainsKey(args[0].ToUpper()))
+                string serverNameUpper = args[0].ToUpper();
+
+                IEnumerable<ServerStructure> servers = GameData.GameData.Servers.Map.Where(x => x.Key == serverNameUpper || x.Value.Name.ToUpper() == serverNameUpper).Select(x => x.Value);
+
+                if (servers.Count() == 1)
                 {
-                    ChangeDefault(GameData.GameData.Servers.ByID(args[0].ToUpper()).Name);
+                    ServerStructure server = servers.First();
+
+                    ChangeDefault(server.Name);
                     ReconnectPacket reconnect = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
-                    reconnect.Host = GameData.GameData.Servers.ByID(args[0].ToUpper()).Address;
+                    reconnect.Host = server.Address;
                     reconnect.Port = 2050;
                     reconnect.GameId = -2;
                     reconnect.Name = "Nexus";
