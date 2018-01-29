@@ -40,10 +40,13 @@ namespace K_Relay
                 {
                     if (e.PropertyName == "DefaultServerName")
                     {
+                        string serverName = Config.Default.DefaultServerName;
+
+                        // Update default server in Proxy class (used by State constructor)
+                        Lib_K_Relay.Proxy.DefaultServer = GameData.Servers.ByName(serverName).Address;
+
                         Invoke((MethodInvoker)delegate
                         {
-                            string serverName = Config.Default.DefaultServerName;
-
                             if (!lstServers.SelectedItem.Equals(serverName))
                             {
                                 lstServers.SelectedItem = serverName;
