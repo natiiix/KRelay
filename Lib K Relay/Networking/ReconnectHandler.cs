@@ -24,7 +24,7 @@ namespace Lib_K_Relay.Networking
 
             proxy.HookCommand("con", OnConnectCommand);
             proxy.HookCommand("connect", OnConnectCommand);
-            proxy.HookCommand("server", OnConnectCommand);
+            //proxy.HookCommand("server", OnConnectCommand);
             proxy.HookCommand("recon", OnReconCommand);
             proxy.HookCommand("drecon", OnDreconCommand);
         }
@@ -121,7 +121,7 @@ namespace Lib_K_Relay.Networking
                     reconnect.IsFromArena = false;
                     reconnect.Key = new byte[0];
                     reconnect.KeyTime = 0;
-					reconnect.Stats = string.Empty;
+                    reconnect.Stats = string.Empty;
                     SendReconnect(client, reconnect);
                 }
                 else
