@@ -88,31 +88,17 @@ namespace K_Relay
 
             if (Config.Default.DefaultServerName != oldServer)
             {
-                ReconnectAllClients();
+                // Get server by name
+                ServerStructure server = GameData.Servers.ByName(Config.Default.DefaultServerName);
+
+                // Update the server address in all the states
+                foreach (var state in _proxy.States)
+                {
+                    state.Value.ConTargetAddress = server.Address;
+                }
             }
 
             MetroMessageBox.Show(this, "\nYour settings have been saved.", "Save Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void ReconnectAllClients()
-        {
-            // Get server by name
-            ServerStructure server = GameData.Servers.Map.Values.Single(x => x.Name == Config.Default.DefaultServerName);
-
-            ReconnectPacket reconnect = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
-            reconnect.Host = server.Address;
-            reconnect.Port = 2050;
-            reconnect.GameId = -2;
-            reconnect.Name = "Nexus";
-            reconnect.IsFromArena = false;
-            reconnect.Key = new byte[0];
-            reconnect.KeyTime = 0;
-            reconnect.Stats = string.Empty;
-
-            foreach (Lib_K_Relay.Networking.Client client in _proxy.States.Values.Select(x => x.Client))
-            {
-                Lib_K_Relay.Networking.ReconnectHandler.SendReconnect(client, reconnect);
-            }
         }
 
         private class FixedStyleManager
