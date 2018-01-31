@@ -5,10 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Lib_K_Relay.Utilities;
-using Lib_K_Relay.Networking.Packets;
-using Lib_K_Relay.Networking.Packets.Server;
-using Lib_K_Relay.GameData;
-using Lib_K_Relay.GameData.DataStructures;
 using MetroFramework;
 using MetroFramework.Components;
 using MetroFramework.Forms;
@@ -36,25 +32,6 @@ namespace K_Relay
                 tglStartByDefault.Checked = Config.Default.StartProxyByDefault;
                 lstServers.SelectedItem = Config.Default.DefaultServerName;
 
-                Config.Default.PropertyChanged += (sender, e) =>
-                {
-                    if (e.PropertyName == "DefaultServerName")
-                    {
-                        string serverName = Config.Default.DefaultServerName;
-
-                        // Update default server in Proxy class (used by State constructor)
-                        Lib_K_Relay.Proxy.DefaultServer = GameData.Servers.ByName(serverName).Address;
-
-                        Invoke((MethodInvoker)delegate
-                        {
-                            if (!lstServers.SelectedItem.Equals(serverName))
-                            {
-                                lstServers.SelectedItem = serverName;
-                            }
-                        });
-                    }
-                };
-
                 m_themeManager.OnStyleChanged += m_themeManager_OnStyleChanged;
                 m_themeManager_OnStyleChanged(null, null);
             });
@@ -70,61 +47,37 @@ namespace K_Relay
             m_themeManager.Theme = (MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle), (string)themeCombobox.SelectedItem, true);
         }
 
-        public static void ChangeServer(string server)
+        public void ChangeServer(string Server)
         {
-            Config.Default.DefaultServerName = server;
+            Config.Default.DefaultServerName = Server;
             Config.Default.Save();
+            Invoke((MethodInvoker)delegate
+            {
+                lstServers.SelectedItem = Config.Default.DefaultServerName;
+            });
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
         {
-            string oldServer = Config.Default.DefaultServerName;
-
             Config.Default.StartProxyByDefault = tglStartByDefault.Checked;
             Config.Default.DefaultServerName = lstServers.SelectedItem.ToString();
             Config.Default.Theme = (MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle), (string)themeCombobox.SelectedItem, true);
             Config.Default.Style = (MetroColorStyle)Enum.Parse(typeof(MetroColorStyle), (string)styleCombobox.SelectedItem, true);
             Config.Default.Save();
 
-            if (Config.Default.DefaultServerName != oldServer)
-            {
-                ReconnectAllClients();
-            }
-
             MetroMessageBox.Show(this, "\nYour settings have been saved.", "Save Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void ReconnectAllClients()
-        {
-            // Get server by name
-            ServerStructure server = GameData.Servers.Map.Values.Single(x => x.Name == Config.Default.DefaultServerName);
-
-            ReconnectPacket reconnect = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
-            reconnect.Host = server.Address;
-            reconnect.Port = 2050;
-            reconnect.GameId = -2;
-            reconnect.Name = "Nexus";
-            reconnect.IsFromArena = false;
-            reconnect.Key = new byte[0];
-            reconnect.KeyTime = 0;
-            reconnect.Stats = string.Empty;
-
-            foreach (Lib_K_Relay.Networking.Client client in _proxy.States.Values.Select(x => x.Client))
-            {
-                Lib_K_Relay.Networking.ReconnectHandler.SendReconnect(client, reconnect);
-            }
         }
 
         private class FixedStyleManager
         {
             public event EventHandler OnThemeChanged;
-
             public event EventHandler OnStyleChanged;
 
             private MetroStyleManager m_manager;
 
             private MetroColorStyle m_colorStyle;
             private MetroThemeStyle m_themeStyle;
+
 
             public FixedStyleManager(MetroForm form)
             {

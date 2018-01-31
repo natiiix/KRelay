@@ -15,6 +15,8 @@ namespace Lib_K_Relay.Networking
     public class ReconnectHandler
     {
         private Proxy _proxy;
+        public static event ChangeServerHandler ChangeDefault;
+        public delegate void ChangeServerHandler(string Server);
 
         public void Attach(Proxy proxy)
         {
@@ -108,9 +110,14 @@ namespace Lib_K_Relay.Networking
             packet.Port = 2050;
         }
 
-        public static event ChangeServerHandler ChangeDefault;
-
-        public delegate void ChangeServerHandler(string Server);
+        public void SwitchDefault(string Server)
+        {
+            string Address = GameData.GameData.Servers.ByName(Server).Address;
+            ChangeDefault(Server);
+            Proxy.DefaultServer = Address;
+            foreach (var State in _proxy.States.Values)
+                State.ConTargetAddress = Address;
+        }
 
         private void OnConnectCommand(Client client, string command, string[] args)
         {
@@ -123,8 +130,7 @@ namespace Lib_K_Relay.Networking
                 if (servers.Count() == 1)
                 {
                     ServerStructure server = servers.First();
-
-                    ChangeDefault(server.Name);
+                    SwitchDefault(GameData.GameData.Servers.ByID(args[0].ToUpper()).Name);
                     ReconnectPacket reconnect = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
                     reconnect.Host = server.Address;
                     reconnect.Port = 2050;
