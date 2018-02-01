@@ -110,7 +110,7 @@ namespace Lib_K_Relay.Networking
 
         public static event ChangeServerHandler ChangeDefault;
 
-        public delegate void ChangeServerHandler(string Server);
+        public delegate void ChangeServerHandler(ServerStructure server);
 
         private void OnConnectCommand(Client client, string command, string[] args)
         {
@@ -124,7 +124,8 @@ namespace Lib_K_Relay.Networking
                 {
                     ServerStructure server = servers.First();
 
-                    ChangeDefault(server.Name);
+                    ChangeDefault(server);
+
                     ReconnectPacket reconnect = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
                     reconnect.Host = server.Address;
                     reconnect.Port = 2050;

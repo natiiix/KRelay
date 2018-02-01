@@ -70,10 +70,16 @@ namespace K_Relay
             m_themeManager.Theme = (MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle), (string)themeCombobox.SelectedItem, true);
         }
 
-        public static void ChangeServer(string server)
+        private void ChangeServer(ServerStructure server)
         {
-            Config.Default.DefaultServerName = server;
+            Config.Default.DefaultServerName = server.Name;
             Config.Default.Save();
+
+            // Update the server address in all the states
+            foreach (var state in _proxy.States)
+            {
+                state.Value.ConTargetAddress = server.Address;
+            }
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -89,13 +95,7 @@ namespace K_Relay
             if (Config.Default.DefaultServerName != oldServer)
             {
                 // Get server by name
-                ServerStructure server = GameData.Servers.ByName(Config.Default.DefaultServerName);
-
-                // Update the server address in all the states
-                foreach (var state in _proxy.States)
-                {
-                    state.Value.ConTargetAddress = server.Address;
-                }
+                ChangeServer(GameData.Servers.ByName(Config.Default.DefaultServerName));
             }
 
             MetroMessageBox.Show(this, "\nYour settings have been saved.", "Save Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
