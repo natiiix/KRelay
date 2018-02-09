@@ -27,6 +27,8 @@ namespace K_Relay
                 themeCombobox.Items.AddRange(Enum.GetNames(typeof(MetroThemeStyle)));
                 styleCombobox.Items.AddRange(Enum.GetNames(typeof(MetroColorStyle)));
 
+                lstServers.Items.AddRange(GameData.Servers.Map.Select(x => x.Value.Name).OrderBy(x => x).ToArray());
+
                 themeCombobox.SelectedValueChanged += themeCombobox_SelectedValueChanged;
                 styleCombobox.SelectedValueChanged += styleCombobox_SelectedValueChanged;
 
