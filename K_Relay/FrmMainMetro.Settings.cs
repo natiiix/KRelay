@@ -50,7 +50,6 @@ namespace K_Relay
         }
 
 <<<<<<< HEAD
-<<<<<<< HEAD
         public void ChangeServer(string Server)
         {
             Config.Default.DefaultServerName = Server;
@@ -60,8 +59,6 @@ namespace K_Relay
                 lstServers.SelectedItem = Config.Default.DefaultServerName;
             });
 =======
-=======
->>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
         private void ChangeServer(ServerStructure server)
         {
             Config.Default.DefaultServerName = server.Name;
@@ -72,9 +69,6 @@ namespace K_Relay
             {
                 state.Value.ConTargetAddress = server.Address;
             }
-<<<<<<< HEAD
->>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
-=======
 >>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
         }
 
