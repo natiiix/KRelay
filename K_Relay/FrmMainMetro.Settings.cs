@@ -23,8 +23,6 @@ namespace K_Relay
                 themeCombobox.Items.AddRange(Enum.GetNames(typeof(MetroThemeStyle)));
                 styleCombobox.Items.AddRange(Enum.GetNames(typeof(MetroColorStyle)));
 
-                lstServers.Items.AddRange(GameData.Servers.Map.Select(x => x.Value.Name).OrderBy(x => x).ToArray());
-
                 themeCombobox.SelectedValueChanged += themeCombobox_SelectedValueChanged;
                 styleCombobox.SelectedValueChanged += styleCombobox_SelectedValueChanged;
 
@@ -49,7 +47,6 @@ namespace K_Relay
             m_themeManager.Theme = (MetroThemeStyle)Enum.Parse(typeof(MetroThemeStyle), (string)themeCombobox.SelectedItem, true);
         }
 
-<<<<<<< HEAD
         public void ChangeServer(string Server)
         {
             Config.Default.DefaultServerName = Server;
@@ -58,18 +55,6 @@ namespace K_Relay
             {
                 lstServers.SelectedItem = Config.Default.DefaultServerName;
             });
-=======
-        private void ChangeServer(ServerStructure server)
-        {
-            Config.Default.DefaultServerName = server.Name;
-            Config.Default.Save();
-
-            // Update the server address in all the states
-            foreach (var state in _proxy.States)
-            {
-                state.Value.ConTargetAddress = server.Address;
-            }
->>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
         }
 
         private void btnSaveSettings_Click(object sender, EventArgs e)
@@ -80,15 +65,6 @@ namespace K_Relay
             Config.Default.Style = (MetroColorStyle)Enum.Parse(typeof(MetroColorStyle), (string)styleCombobox.SelectedItem, true);
             Config.Default.Save();
 
-<<<<<<< HEAD
-=======
-            if (Config.Default.DefaultServerName != oldServer)
-            {
-                // Get server by name
-                ChangeServer(GameData.Servers.ByName(Config.Default.DefaultServerName));
-            }
-
->>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
             MetroMessageBox.Show(this, "\nYour settings have been saved.", "Save Settings", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
