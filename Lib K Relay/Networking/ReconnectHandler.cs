@@ -93,6 +93,7 @@ namespace Lib_K_Relay.Networking
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         public void SwitchDefault(string Server)
         {
             string Address = GameData.GameData.Servers.ByName(Server).Address;
@@ -102,6 +103,8 @@ namespace Lib_K_Relay.Networking
                 State.ConTargetAddress = Address;
         }
 =======
+=======
+>>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
         private static ReconnectPacket CloneReconnectPacket(Client client, ReconnectPacket packet)
         {
             ReconnectPacket clone = (ReconnectPacket)Packet.Create(PacketType.RECONNECT);
@@ -120,6 +123,9 @@ namespace Lib_K_Relay.Networking
         public static event ChangeServerHandler ChangeDefault;
 
         public delegate void ChangeServerHandler(ServerStructure server);
+<<<<<<< HEAD
+>>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
+=======
 >>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
 
         private void OnConnectCommand(Client client, string command, string[] args)
@@ -155,6 +161,11 @@ namespace Lib_K_Relay.Networking
                     SwitchDefault(GameData.GameData.Servers.ByID(args[0].ToUpper()).Name);
 =======
 
+                    ChangeDefault(server);
+
+<<<<<<< HEAD
+>>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
+=======
                     ChangeDefault(server);
 
 >>>>>>> f2fe2786e569421ccec05c63f91ab47ecb7ab088
