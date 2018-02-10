@@ -33,6 +33,7 @@ namespace Lib_K_Relay.Networking
         private void OnHello(Client client, HelloPacket packet)
         {
             client.State = _proxy.GetState(client, packet.Key);
+            client.State.LastHello = packet;
             if (client.State.ConRealKey.Length != 0)
             {
                 packet.Key = client.State.ConRealKey;
