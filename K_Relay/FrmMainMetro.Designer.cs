@@ -475,29 +475,6 @@
             // 
             this.lstServers.FormattingEnabled = true;
             this.lstServers.ItemHeight = 23;
-            this.lstServers.Items.AddRange(new object[] {
-            "AsiaEast",
-            "AsiaSouthEast",
-            "EUEast",
-            "EUNorth",
-            "EUNorth2",
-            "EUSouth",
-            "EUSouthWest",
-            "EUWest",
-            "EUWest2",
-            "USEast",
-            "USEast2",
-            "USEast3",
-            "USMidWest",
-            "USMidWest2",
-            "USNorthWest",
-            "USSouth",
-            "USSouth2",
-            "USSouth3",
-            "USSouthWest",
-            "USWest",
-            "USWest2",
-            "USWest3"});
             this.lstServers.Location = new System.Drawing.Point(160, 51);
             this.lstServers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lstServers.MaxDropDownItems = 32;

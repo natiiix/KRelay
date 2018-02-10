@@ -19,7 +19,6 @@ namespace Lib_K_Relay.Networking
 
         public ReconnectPacket LastRealm = null;
         public ReconnectPacket LastDungeon = null;
-        public HelloPacket LastHello = null;
 
         public Dictionary<string, dynamic> States;
 
