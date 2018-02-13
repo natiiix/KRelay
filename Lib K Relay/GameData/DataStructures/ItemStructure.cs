@@ -14,7 +14,8 @@ namespace Lib_K_Relay.GameData.DataStructures
             doc.Element("Objects")
                 .Elements("Object")
                 .Where(elem => elem.HasElement("Item"))
-                .ForEach(item => {
+                .ForEach(item =>
+                {
                     ItemStructure i = new ItemStructure(item);
                     map[i.ID] = i;
                 });
@@ -49,7 +50,11 @@ namespace Lib_K_Relay.GameData.DataStructures
         /// <summary>
         /// The numerical identifier for this item
         /// </summary>
-        public ushort ID { get; private set; }
+        public ushort ID
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// Projectile emitted by the item
@@ -114,7 +119,11 @@ namespace Lib_K_Relay.GameData.DataStructures
         /// <summary>
         /// The text identifier for this item
         /// </summary>
-        public string Name { get; private set; }
+        public string Name
+        {
+            get;
+            private set;
+        }
 
         public ItemStructure(XElement item)
         {
@@ -135,7 +144,9 @@ namespace Lib_K_Relay.GameData.DataStructures
 
             NumProjectiles = item.ElemDefault("NumProjectiles", "0").ParseInt();
             if (item.HasElement("Projectile"))
+            {
                 Projectile = new ProjectileStructure(item.Element("Projectile"));
+            }
         }
 
         public override string ToString()

@@ -54,15 +54,21 @@ namespace K_Relay
             InitPlugins();
 
             if (GameData.Servers.Map.Where(s => s.Value.Name == (string)lstServers.SelectedItem).Any())
+            {
                 Proxy.DefaultServer = GameData.Servers.ByName((string)lstServers.SelectedItem).Address;
+            }
             else
+            {
                 PluginUtils.Log("K Relay", "Default server wasn't found, using USWest.");
+            }
 
             PluginUtils.Log("K Relay", "Initialization complete.");
 
             btnToggleProxy.Enabled = true;
             if (Config.Default.StartProxyByDefault)
+            {
                 btnToggleProxy_Click(null, null);
+            }
         }
 
         private void m_themeManager_OnStyleChanged(object sender, EventArgs e)

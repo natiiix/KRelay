@@ -52,7 +52,10 @@ namespace Lib_K_Relay.Networking
                 States.TryGetValue(stateName, out value);
                 return value;
             }
-            set { States[stateName] = value; }
+            set
+            {
+                States[stateName] = value;
+            }
         }
     }
 }

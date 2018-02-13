@@ -5,14 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Lib_K_Relay.GameData.DataStructures {
-	public struct TileStructure : IDataStructure<ushort> {
-		internal static Dictionary<ushort, TileStructure> Load(XDocument doc) {
+namespace Lib_K_Relay.GameData.DataStructures
+{
+	public struct TileStructure : IDataStructure<ushort>
+    {
+		internal static Dictionary<ushort, TileStructure> Load(XDocument doc)
+        {
 			Dictionary<ushort, TileStructure> map = new Dictionary<ushort, TileStructure>();
 
 			doc.Element("GroundTypes")
 				.Elements("Ground")
-				.ForEach(tile => {
+				.ForEach(tile =>
+                {
 					TileStructure t = new TileStructure(tile);
 					map[t.ID] = t;
 				});
@@ -23,7 +27,11 @@ namespace Lib_K_Relay.GameData.DataStructures {
 		/// <summary>
 		/// The numerical identifier of this tile
 		/// </summary>
-		public ushort ID { get; private set; }
+		public ushort ID
+        {
+            get;
+            private set;
+        }
 
 		/// <summary>
 		/// Whether this tile can be walked on
@@ -53,9 +61,14 @@ namespace Lib_K_Relay.GameData.DataStructures {
 		/// <summary>
 		/// The text identifier for this tile
 		/// </summary>
-		public string Name { get; private set; }
+		public string Name
+        {
+            get;
+            private set;
+        }
 
-		public TileStructure(XElement tile) {
+		public TileStructure(XElement tile)
+        {
 			ID = (ushort)tile.AttrDefault("type", "0x0").ParseHex();
 			NoWalk = tile.HasElement("NoWalk");
 			Speed = tile.ElemDefault("Speed", "1").ParseFloat();
@@ -66,7 +79,8 @@ namespace Lib_K_Relay.GameData.DataStructures {
 			Name = tile.AttrDefault("id", "");
 		}
 
-		public override string ToString() {
+		public override string ToString()
+        {
 			return string.Format("Tile: {0} (0x{1:X})", Name, ID);
 		}
 	}

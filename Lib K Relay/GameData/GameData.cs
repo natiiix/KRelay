@@ -7,22 +7,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace Lib_K_Relay.GameData {
+namespace Lib_K_Relay.GameData
+{
 	/// <summary>
 	/// Represents a mapping of short identifiers to data structures for a given data type
 	/// </summary>
 	/// <typeparam name="IDType">The type of the short identifier (e.g. byte, ushort, string)</typeparam>
 	/// <typeparam name="DataType">The type of the data structure (e.g. PacketStructure, EnemyStructure, ServerStructure)</typeparam>
-	public class GameDataMap<IDType, DataType> where DataType : IDataStructure<IDType> {
+	public class GameDataMap<IDType, DataType> where DataType : IDataStructure<IDType>
+    {
 
 		/// <summary>
 		/// Map of short id -> data structure
 		/// </summary>
-		public Dictionary<IDType, DataType> Map { get; private set; }
+		public Dictionary<IDType, DataType> Map
+        {
+            get;
+            private set;
+        }
 
-		private GameDataMap() { }
+		private GameDataMap()
+        {
 
-		public GameDataMap(Dictionary<IDType, DataType> map) {
+        }
+
+		public GameDataMap(Dictionary<IDType, DataType> map)
+        {
 			Map = map;
 		}
 
@@ -33,7 +43,8 @@ namespace Lib_K_Relay.GameData {
 		/// <returns>The data structure</returns>
 		/// <example>GameData.Packets.ByID(255) -> Packet: UNKNOWN (255)</example>
 		/// <example>GameData.Servers.ByID("USW") -> Server: USWest/USW</example>
-		public DataType ByID(IDType id) {
+		public DataType ByID(IDType id)
+        {
 			return Map[id];
 		}
 
@@ -44,7 +55,8 @@ namespace Lib_K_Relay.GameData {
 		/// <returns>The data structure</returns>
 		/// <example>GameData.Packets.ByName("UNKNOWN") -> Packet: UNKNOWN(255)</example>
 		/// <example>GameData.Servers.ByName("USWest") -> Server: USWest/USW</example>
-		public DataType ByName(string name) {
+		public DataType ByName(string name)
+        {
 			return Map.First(e => e.Value.Name == name).Value;
 		}
 
@@ -54,16 +66,30 @@ namespace Lib_K_Relay.GameData {
 		/// <param name="f">The expression to evaluate</param>
 		/// <returns>The data structure</returns>
 		/// <example>GameData.Packets.Match(p => p.Type == typeof(NewTickPacket)) -> NEWTICK (47)</example>
-		public DataType Match(Func<DataType, bool> f) {
+		public DataType Match(Func<DataType, bool> f)
+        {
 			return Map.First(e => f(e.Value)).Value;
 		}
 	}
 
-	public static class GameData {
+	public static class GameData
+    {
 
-        public static string RawObjectsXML { get; private set; }
-        public static string RawPacketsXML { get; private set; }
-        public static string RawTilesXML { get; private set; }
+        public static string RawObjectsXML
+        {
+            get;
+            private set;
+        }
+        public static string RawPacketsXML
+        {
+            get;
+            private set;
+        }
+        public static string RawTilesXML
+        {
+            get;
+            private set;
+        }
 
 		/// <summary>
 		/// Maps item data ("type" attribute -> item structure)
@@ -98,25 +124,31 @@ namespace Lib_K_Relay.GameData {
             RawTilesXML = Resources.Tiles;
         }
 
-        public static void Load() {
+        public static void Load()
+        {
             Parallel.Invoke(
-            () => {
+            () =>
+            {
                 Items = new GameDataMap<ushort, ItemStructure>(ItemStructure.Load(XDocument.Parse(RawObjectsXML)));
                 PluginUtils.Log("GameData", "Mapped {0} items.", Items.Map.Count);
             },
-            () => {
+            () =>
+            {
                 Tiles = new GameDataMap<ushort, TileStructure>(TileStructure.Load(XDocument.Parse(RawTilesXML)));
 	            PluginUtils.Log("GameData", "Mapped {0} tiles.", Tiles.Map.Count);
             },
-            () => {
+            () =>
+            {
                 Objects = new GameDataMap<ushort, ObjectStructure>(ObjectStructure.Load(XDocument.Parse(RawObjectsXML)));
 	            PluginUtils.Log("GameData", "Mapped {0} objects.", Objects.Map.Count);
             },
-            () => {
+            () =>
+            {
                 Packets = new GameDataMap<byte, PacketStructure>(PacketStructure.Load(XDocument.Parse(RawPacketsXML)));
 	            PluginUtils.Log("GameData", "Mapped {0} packets.", Packets.Map.Count);
             },
-            () => {
+            () =>
+            {
                 const string CHAR_LIST_FILE = "char_list.xml";
 
                 XDocument charList = null;
@@ -125,7 +157,10 @@ namespace Lib_K_Relay.GameData {
                 {
                     charList = XDocument.Load("http://realmofthemadgodhrd.appspot.com/char/list");
                 }
-                catch (Exception) { }
+                catch (Exception)
+                {
+
+                }
 
                 // If the char list doesn't contain an error
                 if (charList != null && charList.Element("Error") == null)
@@ -151,6 +186,5 @@ namespace Lib_K_Relay.GameData {
 
 			PluginUtils.Log("GameData", "Successfully loaded game data.");
 		}
-
 	}
 }

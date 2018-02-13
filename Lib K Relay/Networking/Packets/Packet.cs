@@ -81,7 +81,9 @@ namespace Lib_K_Relay.Networking.Packets
             StringBuilder s = new StringBuilder();
             s.Append(Type + "(" + Id + ") Packet Instance");
             foreach (FieldInfo f in fields)
+            {
                 s.Append("\n\t" + f.Name + " => " + f.GetValue(this));
+            }
             return s.ToString();
         }
 
@@ -95,7 +97,9 @@ namespace Lib_K_Relay.Networking.Packets
             StringBuilder s = new StringBuilder();
             s.Append(Type + " [" + GameData.GameData.Packets.ByName(Type.ToString()).ID + "] \nPacket Structure:\n{");
             foreach (FieldInfo f in fields)
+            {
                 s.Append("\n  " + f.Name + " => " + f.FieldType.Name);
+            }
             s.Append("\n}");
             return s.ToString();
         }

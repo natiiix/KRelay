@@ -122,23 +122,35 @@ namespace K_Relay
 
             public MetroColorStyle Style
             {
-                get { return m_colorStyle; }
+                get
+                {
+                    return m_colorStyle;
+                }
                 set
                 {
                     m_colorStyle = value;
                     Update();
-                    if (OnStyleChanged != null) OnStyleChanged(this, new EventArgs());
+                    if (OnStyleChanged != null)
+                    {
+                        OnStyleChanged(this, new EventArgs());
+                    }
                 }
             }
 
             public MetroThemeStyle Theme
             {
-                get { return m_themeStyle; }
+                get
+                {
+                    return m_themeStyle;
+                }
                 set
                 {
                     m_themeStyle = value;
                     Update();
-                    if (OnThemeChanged != null) OnThemeChanged(this, new EventArgs());
+                    if (OnThemeChanged != null)
+                    {
+                        OnThemeChanged(this, new EventArgs());
+                    }
                 }
             }
 

@@ -36,7 +36,10 @@ namespace Lib_K_Relay.Networking
         /// </summary>
         public int Time
         {
-            get { return PreviousTime + (Environment.TickCount - LastUpdate); }
+            get
+            {
+                return PreviousTime + (Environment.TickCount - LastUpdate);
+            }
         }
 
         /// <summary>
@@ -44,7 +47,10 @@ namespace Lib_K_Relay.Networking
         /// </summary>
         public int ObjectId
         {
-            get { return PlayerData.OwnerObjectId; }
+            get
+            {
+                return PlayerData.OwnerObjectId;
+            }
         }
 
         /// <summary>
@@ -52,7 +58,8 @@ namespace Lib_K_Relay.Networking
         /// </summary>
         public PlayerData PlayerData
         {
-            get; set;
+            get;
+            set;
         }
 
         /// <summary>
@@ -60,7 +67,8 @@ namespace Lib_K_Relay.Networking
         /// </summary>
         public State State
         {
-            get; set;
+            get;
+            set;
         }
 
         /// <summary>
@@ -68,7 +76,10 @@ namespace Lib_K_Relay.Networking
         /// </summary>
         public bool Connected
         {
-            get { return !_closed; }
+            get
+            {
+                return !_closed;
+            }
         }
 
         public Client(Proxy proxy, TcpClient client)
@@ -177,7 +188,10 @@ namespace Lib_K_Relay.Networking
                     }
                 }, "PacketSend (packet = " + packet?.Type + ")", typeof(IOException));
 
-                if (!success) Dispose();
+                if (!success)
+                {
+                    Dispose();
+                }
             }
         }
 
@@ -224,19 +238,28 @@ namespace Lib_K_Relay.Networking
                     Packet packet = Packet.Create(buffer.Bytes);
 
                     if (isClient)
+                    {
                         _proxy.FireClientPacket(this, packet);
+                    }
                     else
+                    {
                         _proxy.FireServerPacket(this, packet);
+                    }
 
                     if (packet.Send)
+                    {
                         Send(packet, !isClient);
+                    }
 
                     buffer.Reset();
                     BeginRead(0, 4, isClient);
                 }
             }, "RemoteRead (isClient = " + isClient + ")", typeof(IOException));
 
-            if (!success) Dispose();
+            if (!success)
+            {
+                Dispose();
+            }
         }
     }
 }

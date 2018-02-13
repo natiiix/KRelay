@@ -58,12 +58,15 @@ namespace Lib_K_Relay.Networking
         private void OnUpdate(Client client, UpdatePacket packet)
         {
             client.PlayerData.Parse(packet);
-            if (client.State.ACCID != null) return;
+            if (client.State.ACCID != null)
+            {
+                return;
+            }
 
             State resolvedState = null;
             State randomRealmState = null;
 
-            foreach (State cstate in _proxy.States.Values)
+            foreach (State cstate in _proxy.States.Values.ToList())
             {
                 if (cstate.ACCID == client.PlayerData.AccountId)
                 {
@@ -74,13 +77,9 @@ namespace Lib_K_Relay.Networking
                     {
                         resolvedState.ConTargetAddress = randomRealmState.LastRealm.Host;
                         resolvedState.LastRealm = randomRealmState.LastRealm;
+                        _proxy.States.Remove(randomRealmState.GUID);
                     }
                 }
-            }
-
-            if (randomRealmState != null)
-            {
-                _proxy.States.Remove(randomRealmState.GUID);
             }
 
             if (resolvedState == null)
@@ -90,10 +89,14 @@ namespace Lib_K_Relay.Networking
             else
             {
                 foreach (var pair in client.State.States)
+                {
                     resolvedState[pair.Key] = pair.Value;
+                }
 
                 foreach (var pair in client.State.States)
+                {
                     resolvedState[pair.Key] = pair.Value;
+                }
 
                 client.State = resolvedState;
             }

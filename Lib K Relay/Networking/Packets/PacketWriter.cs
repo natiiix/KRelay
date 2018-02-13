@@ -12,7 +12,10 @@ namespace Lib_K_Relay.Networking.Packets
     public class PacketWriter : BinaryWriter
     {
         public PacketWriter(MemoryStream input)
-            : base(input) { }
+            : base(input)
+        {
+
+        }
 
         public override void Write(short value)
         {

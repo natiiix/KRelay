@@ -41,7 +41,9 @@ namespace Lib_K_Relay.Utilities
             catch (Exception e)
             {
                 if (e.GetType() != filteredException)
+                {
                     LogPluginException(e, errorProvider);
+                }
                 return false;
             }
         }
@@ -73,7 +75,10 @@ namespace Lib_K_Relay.Utilities
         /// <param name="message">Message to be logged</param>
         public static void Log(string sender, string message)
         {
-            if (sender.Length > 13) sender = sender.Substring(0, 13);
+            if (sender.Length > 13)
+            {
+                sender = sender.Substring(0, 13);
+            }
             sender += "]";
             Console.WriteLine(string.Format("[{0,-15} {1}", sender, message));
         }

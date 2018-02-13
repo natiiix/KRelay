@@ -77,7 +77,10 @@ namespace Lib_K_Relay
                 PluginUtils.Log("Listener", "Local listener started.");
             }, "ClientListenerStart");
 
-            if (!success) return;
+            if (!success)
+            {
+                return;
+            }
 
             PluginUtils.ProtectedInvoke(() =>
             {
@@ -91,7 +94,10 @@ namespace Lib_K_Relay
         /// </summary>
         public void Stop()
         {
-            if (_localListener == null) return;
+            if (_localListener == null)
+            {
+                return;
+            }
 
             PluginUtils.Log("Listener", "Stopping local listener...");
             _localListener.Stop();

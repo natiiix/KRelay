@@ -3,7 +3,8 @@ using System.Runtime.InteropServices;
 namespace Lib_K_Relay.Utilities
 {
 
-    public static partial class HookManager {
+    public static partial class HookManager
+    {
         /// <summary>
         /// The Point structure defines the X- and Y- coordinates of a point. 
         /// </summary>
@@ -11,7 +12,8 @@ namespace Lib_K_Relay.Utilities
         /// http://msdn.microsoft.com/library/default.asp?url=/library/en-us/gdi/rectangl_0tiq.asp
         /// </remarks>
         [StructLayout(LayoutKind.Sequential)]
-        private struct Point {
+        private struct Point
+        {
             /// <summary>
             /// Specifies the X-coordinate of the point. 
             /// </summary>
@@ -26,7 +28,8 @@ namespace Lib_K_Relay.Utilities
         /// The MSLLHOOKSTRUCT structure contains information about a low-level keyboard input event. 
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        private struct MouseLLHookStruct {
+        private struct MouseLLHookStruct
+        {
             /// <summary>
             /// Specifies a Point structure that contains the X- and Y-coordinates of the cursor, in screen coordinates. 
             /// </summary>

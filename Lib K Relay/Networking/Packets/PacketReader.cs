@@ -13,7 +13,10 @@ namespace Lib_K_Relay.Networking.Packets
     public class PacketReader : BinaryReader
     {
         public PacketReader(MemoryStream input)
-            : base(input, Encoding.UTF8) { }
+            : base(input, Encoding.UTF8)
+        {
+
+        }
 
         public override short ReadInt16()
         {
