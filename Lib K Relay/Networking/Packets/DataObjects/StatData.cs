@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
@@ -172,7 +168,7 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
             {
                 return true;
             }
-                
+
             return false;
         }
 
@@ -251,6 +247,7 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
             }
             return this == (StatsType)obj;
         }
+
         public override string ToString()
         {
             return m_type.ToString();

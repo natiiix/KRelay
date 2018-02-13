@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -31,8 +30,8 @@ public class EmbeddedAssembly
             }
 
             // Get byte[] from the file from embedded resource
-            ba = new byte[(int) stm.Length];
-            stm.Read(ba, 0, (int) stm.Length);
+            ba = new byte[(int)stm.Length];
+            stm.Read(ba, 0, (int)stm.Length);
             try
             {
                 asm = Assembly.Load(ba);

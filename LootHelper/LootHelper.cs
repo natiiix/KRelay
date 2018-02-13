@@ -10,12 +10,10 @@ using Lib_K_Relay.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LootHelper
 {
-    class LootState
+    internal class LootState
     {
         public Dictionary<int, int[]> LootBagItems = new Dictionary<int, int[]>();
         public Dictionary<int, Location> LootBagLocations = new Dictionary<int, Location>();
@@ -24,6 +22,7 @@ namespace LootHelper
         public int CustomQuest = -1;
         public int OriginalQuest = -1;
     }
+
     public class LootHelper : IPlugin
     {
         private Dictionary<Client, LootState> _states = new Dictionary<Client, LootState>();

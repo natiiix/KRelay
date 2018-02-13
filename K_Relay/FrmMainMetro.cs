@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using K_Relay.Util;
+using Lib_K_Relay;
+using Lib_K_Relay.GameData;
+using Lib_K_Relay.Networking;
+using Lib_K_Relay.Utilities;
+using MetroFramework.Drawing;
+using MetroFramework.Forms;
+using System;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using K_Relay.Util;
-using Lib_K_Relay;
-using Lib_K_Relay.Networking;
-using Lib_K_Relay.Networking.Packets;
-using Lib_K_Relay.Utilities;
-using MetroFramework.Forms;
-using MetroFramework.Drawing;
-using Lib_K_Relay.GameData;
-using Lib_K_Relay.GameData.DataStructures;
 
 namespace K_Relay
 {

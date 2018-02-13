@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lib_K_Relay.Networking.Packets.Server
+﻿namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class PasswordPromptPacket : Packet
     {
@@ -12,7 +6,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public const int SEND_EMAIL_AND_SIGN_IN = 3;
         public const int REGISTER = 4;
 
-		public int CleanPasswordStatus;
+        public int CleanPasswordStatus;
 
         public override PacketType Type
         { get { return PacketType.PASSWORDPROMPT; } }

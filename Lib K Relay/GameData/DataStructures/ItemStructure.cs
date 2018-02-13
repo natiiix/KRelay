@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -42,6 +41,7 @@ namespace Lib_K_Relay.GameData.DataStructures
 
             // unused, but included for future proofing
             T14,
+
             T15,
 
             UT = 255

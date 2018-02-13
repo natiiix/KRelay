@@ -1,14 +1,8 @@
 using Lib_K_Relay.GameData.DataStructures;
-using Lib_K_Relay.Networking.Packets.Client;
-using Lib_K_Relay.Utilities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets
 {
@@ -34,7 +28,7 @@ namespace Lib_K_Relay.Networking.Packets
 
         public static Packet Create(PacketType type)
         {
-			PacketStructure st = GameData.GameData.Packets.ByName(type.ToString());
+            PacketStructure st = GameData.GameData.Packets.ByName(type.ToString());
             Packet packet = (Packet)Activator.CreateInstance(st.Type);
             packet.Id = st.ID;
             return packet;
@@ -43,7 +37,7 @@ namespace Lib_K_Relay.Networking.Packets
         public static T Create<T>(PacketType type)
         {
             Packet packet = (Packet)Activator.CreateInstance(typeof(T));
-			packet.Id = GameData.GameData.Packets.ByName(type.ToString()).ID;
+            packet.Id = GameData.GameData.Packets.ByName(type.ToString()).ID;
             return (T)Convert.ChangeType(packet, typeof(T));
         }
 
@@ -58,7 +52,7 @@ namespace Lib_K_Relay.Networking.Packets
             {
                 r.ReadInt32(); // Skip over int length
                 byte id = r.ReadByte();
-				PacketStructure st = GameData.GameData.Packets.ByID(id);
+                PacketStructure st = GameData.GameData.Packets.ByID(id);
                 PacketType packetType = st.PacketType;
                 Type type = st.Type;
                 // Reflect the type to a new instance and read its data from the PacketReader
@@ -197,9 +191,9 @@ namespace Lib_K_Relay.Networking.Packets
         UPGRADEPETYARDRESULT,
         VERIFYEMAILDIALOG,
         QUESTREDEEMRESPONSE,
-		RESKINUNLOCK,
-		RESKINPET,
-		KEYINFOREQUEST,
-		KEYINFORESPONSE
-	}
+        RESKINUNLOCK,
+        RESKINPET,
+        KEYINFOREQUEST,
+        KEYINFORESPONSE
+    }
 }

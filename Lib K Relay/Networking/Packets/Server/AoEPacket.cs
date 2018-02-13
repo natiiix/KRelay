@@ -1,10 +1,5 @@
 ﻿using Lib_K_Relay.Networking.Packets.DataObjects;
 using Lib_K_Relay.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.Client
 {
@@ -17,13 +12,13 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public float EffectDuration;
         public ushort OriginType;
         public int Color;
-        
+
         public override PacketType Type
         { get { return PacketType.AOE; } }
 
         public override void Read(PacketReader r)
         {
-            Location = (Location) new Location().Read(r);
+            Location = (Location)new Location().Read(r);
             Radius = r.ReadSingle();
             Damage = r.ReadUInt16();
             Effects = (ConditionEffectIndex)r.ReadByte();

@@ -3,20 +3,20 @@ using System.Windows.Forms;
 
 namespace Lib_K_Relay.Utilities
 {
-
     /// <summary>
-    /// This class monitors all mouse activities globally (also outside of the application) 
+    /// This class monitors all mouse activities globally (also outside of the application)
     /// and provides appropriate events.
     /// </summary>
     public static partial class HookManager
     {
         //################################################################
+
         #region Mouse events
 
         private static event MouseEventHandler s_MouseMove;
 
         /// <summary>
-        /// Occurs when the mouse pointer is moved. 
+        /// Occurs when the mouse pointer is moved.
         /// </summary>
         public static event MouseEventHandler MouseMove
         {
@@ -36,10 +36,10 @@ namespace Lib_K_Relay.Utilities
         private static event EventHandler<MouseEventExtArgs> s_MouseMoveExt;
 
         /// <summary>
-        /// Occurs when the mouse pointer is moved. 
+        /// Occurs when the mouse pointer is moved.
         /// </summary>
         /// <remarks>
-        /// This event provides extended arguments of type <see cref="MouseEventArgs"/> enabling you to 
+        /// This event provides extended arguments of type <see cref="MouseEventArgs"/> enabling you to
         /// supress further processing of mouse movement in other applications.
         /// </remarks>
         public static event EventHandler<MouseEventExtArgs> MouseMoveExt
@@ -52,7 +52,6 @@ namespace Lib_K_Relay.Utilities
 
             remove
             {
-
                 s_MouseMoveExt -= value;
                 TryUnsubscribeFromGlobalMouseEvents();
             }
@@ -61,7 +60,7 @@ namespace Lib_K_Relay.Utilities
         private static event MouseEventHandler s_MouseClick;
 
         /// <summary>
-        /// Occurs when a click was performed by the mouse. 
+        /// Occurs when a click was performed by the mouse.
         /// </summary>
         public static event MouseEventHandler MouseClick
         {
@@ -80,10 +79,10 @@ namespace Lib_K_Relay.Utilities
         private static event EventHandler<MouseEventExtArgs> s_MouseClickExt;
 
         /// <summary>
-        /// Occurs when a click was performed by the mouse. 
+        /// Occurs when a click was performed by the mouse.
         /// </summary>
         /// <remarks>
-        /// This event provides extended arguments of type <see cref="MouseEventArgs"/> enabling you to 
+        /// This event provides extended arguments of type <see cref="MouseEventArgs"/> enabling you to
         /// supress further processing of mouse click in other applications.
         /// </remarks>
         public static event EventHandler<MouseEventExtArgs> MouseClickExt
@@ -103,12 +102,12 @@ namespace Lib_K_Relay.Utilities
         private static event MouseEventHandler s_MouseDown;
 
         /// <summary>
-        /// Occurs when the mouse a mouse button is pressed. 
+        /// Occurs when the mouse a mouse button is pressed.
         /// </summary>
-        public static event MouseEventHandler  MouseDown
+        public static event MouseEventHandler MouseDown
         {
-            add 
-            { 
+            add
+            {
                 EnsureSubscribedToGlobalMouseEvents();
                 s_MouseDown += value;
             }
@@ -122,7 +121,7 @@ namespace Lib_K_Relay.Utilities
         private static event MouseEventHandler s_MouseUp;
 
         /// <summary>
-        /// Occurs when a mouse button is released. 
+        /// Occurs when a mouse button is released.
         /// </summary>
         public static event MouseEventHandler MouseUp
         {
@@ -141,7 +140,7 @@ namespace Lib_K_Relay.Utilities
         private static event MouseEventHandler s_MouseWheel;
 
         /// <summary>
-        /// Occurs when the mouse wheel moves. 
+        /// Occurs when the mouse wheel moves.
         /// </summary>
         public static event MouseEventHandler MouseWheel
         {
@@ -157,16 +156,15 @@ namespace Lib_K_Relay.Utilities
             }
         }
 
-
         private static event MouseEventHandler s_MouseDoubleClick;
 
         //The double click event will not be provided directly from hook.
-        //To fire the double click event wee need to monitor mouse up event and when it occures 
+        //To fire the double click event wee need to monitor mouse up event and when it occures
         //Two times during the time interval which is defined in Windows as a doble click time
         //we fire this event.
 
         /// <summary>
-        /// Occurs when a double clicked was performed by the mouse. 
+        /// Occurs when a double clicked was performed by the mouse.
         /// </summary>
         public static event MouseEventHandler MouseDoubleClick
         {
@@ -210,6 +208,7 @@ namespace Lib_K_Relay.Utilities
 
         //This field remembers mouse button pressed because in addition to the short interval it must be also the same button.
         private static MouseButtons s_PrevClickedButton;
+
         //The timer to monitor time interval between two clicks.
         private static Timer s_DoubleClickTimer;
 
@@ -221,7 +220,7 @@ namespace Lib_K_Relay.Utilities
         }
 
         /// <summary>
-        /// This method is designed to monitor mouse clicks in order to fire a double click event if interval between 
+        /// This method is designed to monitor mouse clicks in order to fire a double click event if interval between
         /// clicks was short enaugh.
         /// </summary>
         /// <param name="sender">Is always null</param>
@@ -229,11 +228,11 @@ namespace Lib_K_Relay.Utilities
         private static void OnMouseUp(object sender, MouseEventArgs e)
         {
             //This should not heppen
-            if (e.Clicks < 1) { return;}
+            if (e.Clicks < 1) { return; }
             //If the secon click heppened on the same button
             if (e.Button.Equals(s_PrevClickedButton))
             {
-                if (s_MouseDoubleClick!=null)
+                if (s_MouseDoubleClick != null)
                 {
                     //Fire double click
                     s_MouseDoubleClick.Invoke(null, e);
@@ -249,9 +248,11 @@ namespace Lib_K_Relay.Utilities
                 s_PrevClickedButton = e.Button;
             }
         }
-        #endregion
+
+        #endregion Mouse events
 
         //################################################################
+
         #region Keyboard events
 
         private static event KeyPressEventHandler s_KeyPress;
@@ -260,16 +261,16 @@ namespace Lib_K_Relay.Utilities
         /// Occurs when a key is pressed.
         /// </summary>
         /// <remarks>
-        /// Key events occur in the following order: 
+        /// Key events occur in the following order:
         /// <list type="number">
         /// <item>KeyDown</item>
         /// <item>KeyPress</item>
         /// <item>KeyUp</item>
         /// </list>
-        ///The KeyPress event is not raised by noncharacter keys; however, the noncharacter keys do raise the KeyDown and KeyUp events. 
-        ///Use the KeyChar property to sample keystrokes at run time and to consume or modify a subset of common keystrokes. 
-        ///To handle keyboard events only in your application and not enable other applications to receive keyboard events, 
-        /// set the KeyPressEventArgs.Handled property in your form's KeyPress event-handling method to <b>true</b>. 
+        ///The KeyPress event is not raised by noncharacter keys; however, the noncharacter keys do raise the KeyDown and KeyUp events.
+        ///Use the KeyChar property to sample keystrokes at run time and to consume or modify a subset of common keystrokes.
+        ///To handle keyboard events only in your application and not enable other applications to receive keyboard events,
+        /// set the KeyPressEventArgs.Handled property in your form's KeyPress event-handling method to <b>true</b>.
         /// </remarks>
         public static event KeyPressEventHandler KeyPress
         {
@@ -288,7 +289,7 @@ namespace Lib_K_Relay.Utilities
         private static event KeyEventHandler s_KeyUp;
 
         /// <summary>
-        /// Occurs when a key is released. 
+        /// Occurs when a key is released.
         /// </summary>
         public static event KeyEventHandler KeyUp
         {
@@ -307,7 +308,7 @@ namespace Lib_K_Relay.Utilities
         private static event KeyEventHandler s_KeyDown;
 
         /// <summary>
-        /// Occurs when a key is preseed. 
+        /// Occurs when a key is preseed.
         /// </summary>
         public static event KeyEventHandler KeyDown
         {
@@ -323,7 +324,6 @@ namespace Lib_K_Relay.Utilities
             }
         }
 
-
-        #endregion
+        #endregion Keyboard events
     }
 }

@@ -13,22 +13,34 @@ using System.Text;
 namespace Lib_K_Relay
 {
     public delegate void ListenHandler(Proxy proxy);
+
     public delegate void ConnectionHandler(Client client);
+
     public delegate void PacketHandler(Client client, Packet packet);
+
     public delegate void GenericPacketHandler<T>(Client client, T packet) where T : Packet;
+
     public delegate void CommandHandler(Client client, string command, string[] args);
-	public delegate void StealthStateHandler(bool enabled);
+
+    public delegate void StealthStateHandler(bool enabled);
 
     public class Proxy
     {
         public event ListenHandler ProxyListenStarted;
+
         public event ListenHandler ProxyListenStopped;
+
         public event ConnectionHandler ClientBeginConnect;
+
         public event ConnectionHandler ClientConnected;
+
         public event ConnectionHandler ClientDisconnected;
+
         public event PacketHandler ServerPacketRecieved;
+
         public event PacketHandler ClientPacketRecieved;
-		public event StealthStateHandler StealthStateChanged;
+
+        public event StealthStateHandler StealthStateChanged;
 
         public static string DefaultServer = "54.241.208.233"; // USWest
 
@@ -154,6 +166,7 @@ namespace Lib_K_Relay
         }
 
         #region Hook Calls
+
         /// <summary>
         /// Registers a callback for the specified packet type.
         /// </summary>
@@ -194,13 +207,15 @@ namespace Lib_K_Relay
             if (_commandHooks.ContainsKey(callback))
                 _commandHooks[callback].Add(command);
             else
-                _commandHooks.Add(callback, new List<string>() { command[0] == '/' 
-                    ? new string(command.Skip(1).ToArray()).ToLower() 
-                    : command.ToLower() } );
+                _commandHooks.Add(callback, new List<string>() { command[0] == '/'
+                    ? new string(command.Skip(1).ToArray()).ToLower()
+                    : command.ToLower() });
         }
-        #endregion
+
+        #endregion Hook Calls
 
         #region Event Calls
+
         /// <summary>
         /// Fires the ClientConnected event.
         /// </summary>
@@ -290,6 +305,6 @@ namespace Lib_K_Relay
             }, "ClientPacket");
         }
 
-        #endregion
+        #endregion Event Calls
     }
 }

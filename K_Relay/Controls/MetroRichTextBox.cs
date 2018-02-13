@@ -7,8 +7,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace K_Relay.Controls
@@ -21,6 +19,7 @@ namespace K_Relay.Controls
 
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
+
         protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
@@ -31,6 +30,7 @@ namespace K_Relay.Controls
 
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaint;
+
         protected virtual void OnCustomPaint(MetroPaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
@@ -41,6 +41,7 @@ namespace K_Relay.Controls
 
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+
         protected virtual void OnCustomPaintForeground(MetroPaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
@@ -50,6 +51,7 @@ namespace K_Relay.Controls
         }
 
         private MetroColorStyle metroStyle = MetroColorStyle.Default;
+
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         [DefaultValue(MetroColorStyle.Default)]
         public MetroColorStyle Style
@@ -76,6 +78,7 @@ namespace K_Relay.Controls
         }
 
         private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         [DefaultValue(MetroThemeStyle.Default)]
         public MetroThemeStyle Theme
@@ -102,6 +105,7 @@ namespace K_Relay.Controls
         }
 
         private MetroStyleManager metroStyleManager = null;
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MetroStyleManager StyleManager
@@ -111,6 +115,7 @@ namespace K_Relay.Controls
         }
 
         private bool useCustomBackColor = false;
+
         [DefaultValue(false)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseCustomBackColor
@@ -120,6 +125,7 @@ namespace K_Relay.Controls
         }
 
         private bool useCustomForeColor = false;
+
         [DefaultValue(false)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseCustomForeColor
@@ -129,6 +135,7 @@ namespace K_Relay.Controls
         }
 
         private bool useStyleColors = false;
+
         [DefaultValue(false)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseStyleColors
@@ -146,13 +153,14 @@ namespace K_Relay.Controls
             set { SetStyle(ControlStyles.Selectable, value); }
         }
 
-        #endregion
+        #endregion Interface
 
         #region Fields
 
         private PromptedTextBox baseTextBox;
 
         private MetroTextBoxSize metroTextBoxSize = MetroTextBoxSize.Small;
+
         [DefaultValue(MetroTextBoxSize.Small)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public MetroTextBoxSize FontSize
@@ -162,6 +170,7 @@ namespace K_Relay.Controls
         }
 
         private MetroTextBoxWeight metroTextBoxWeight = MetroTextBoxWeight.Regular;
+
         [DefaultValue(MetroTextBoxWeight.Regular)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public MetroTextBoxWeight FontWeight
@@ -181,6 +190,7 @@ namespace K_Relay.Controls
         }
 
         private Image textBoxIcon = null;
+
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(null)]
@@ -188,14 +198,15 @@ namespace K_Relay.Controls
         public Image Icon
         {
             get { return textBoxIcon; }
-            set 
-            { 
+            set
+            {
                 textBoxIcon = value;
                 Refresh();
             }
         }
 
         private bool textBoxIconRight = false;
+
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(false)]
@@ -211,6 +222,7 @@ namespace K_Relay.Controls
         }
 
         private bool displayIcon = true;
+
         [Browsable(true)]
         [EditorBrowsable(EditorBrowsableState.Always)]
         [DefaultValue(true)]
@@ -218,16 +230,16 @@ namespace K_Relay.Controls
         public bool DisplayIcon
         {
             get { return displayIcon; }
-            set 
-            { 
+            set
+            {
                 displayIcon = value;
                 Refresh();
             }
         }
 
-        protected Size iconSize 
+        protected Size iconSize
         {
-            get 
+            get
             {
                 if (displayIcon && textBoxIcon != null)
                 {
@@ -239,20 +251,20 @@ namespace K_Relay.Controls
                 }
 
                 return new Size(-1, -1);
-            }   
+            }
         }
 
-        #endregion
+        #endregion Fields
 
         #region Routing Fields
 
         public override ContextMenu ContextMenu
         {
             get { return baseTextBox.ContextMenu; }
-            set 
+            set
             {
                 ContextMenu = value;
-                baseTextBox.ContextMenu = value; 
+                baseTextBox.ContextMenu = value;
             }
         }
 
@@ -273,7 +285,7 @@ namespace K_Relay.Controls
             set { baseTextBox.Multiline = value; }
         }
 
-         [DefaultValue(true)]
+        [DefaultValue(true)]
         public bool WordWrap
         {
             get { return baseTextBox.WordWrap; }
@@ -290,7 +302,7 @@ namespace K_Relay.Controls
                 appendings.Add(Appending.Create(baseTextBox.Text, Color.Empty, false));
             }
         }
-        
+
         public string[] Lines
         {
             get { return baseTextBox.Lines; }
@@ -300,7 +312,7 @@ namespace K_Relay.Controls
         [Browsable(false)]
         public string SelectedText
         {
-            get { return baseTextBox.SelectedText;  }
+            get { return baseTextBox.SelectedText; }
             set { baseTextBox.Text = value; }
         }
 
@@ -343,7 +355,7 @@ namespace K_Relay.Controls
             set { baseTextBox.BorderStyle = value; }
         }
 
-        #endregion
+        #endregion Routing Fields
 
         #region Constructor
 
@@ -358,22 +370,23 @@ namespace K_Relay.Controls
             AddEventHandler();
         }
 
-        void MetroTextBox_GotFocus(object sender, EventArgs e)
+        private void MetroTextBox_GotFocus(object sender, EventArgs e)
         {
             baseTextBox.Focus();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Routing Methods
 
         public event EventHandler AcceptsTabChanged;
+
         private void BaseTextBoxAcceptsTabChanged(object sender, EventArgs e)
         {
             if (AcceptsTabChanged != null)
                 AcceptsTabChanged(this, e);
         }
-        
+
         private void BaseTextBoxSizeChanged(object sender, EventArgs e)
         {
             base.OnSizeChanged(e);
@@ -455,7 +468,7 @@ namespace K_Relay.Controls
             AppendText(text, Color.Empty, false);
         }
 
-        #endregion
+        #endregion Routing Methods
 
         #region Paint Methods
 
@@ -550,7 +563,7 @@ namespace K_Relay.Controls
             OnCustomPaintForeground(new MetroPaintEventArgs(Color.Empty, baseTextBox.ForeColor, g));
         }
 
-        #endregion
+        #endregion Paint Methods
 
         #region Overridden Methods
 
@@ -566,7 +579,7 @@ namespace K_Relay.Controls
             UpdateBaseTextBox();
         }
 
-        #endregion
+        #endregion Overridden Methods
 
         #region Private Methods
 
@@ -634,7 +647,7 @@ namespace K_Relay.Controls
             }
         }
 
-        #endregion
+        #endregion Private Methods
 
         #region PromptedTextBox
 
@@ -646,6 +659,7 @@ namespace K_Relay.Controls
             private bool drawPrompt;
 
             private string promptText = "";
+
             [Browsable(true)]
             [EditorBrowsable(EditorBrowsableState.Always)]
             [DefaultValue("")]
@@ -720,10 +734,9 @@ namespace K_Relay.Controls
                     DrawTextPrompt();
                 }
             }
-
         }
 
-        #endregion
+        #endregion PromptedTextBox
 
         public void AppendText(string text, Color color, bool bold) //Empty for use theme color
         {

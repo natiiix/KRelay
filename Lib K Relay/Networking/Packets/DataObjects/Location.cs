@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
@@ -13,7 +9,6 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
 
         public Location()
         {
-
         }
 
         public Location(float x, float y)
@@ -60,21 +55,21 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
             return (float)Math.Sqrt(DistanceSquaredTo(location));
         }
 
-		private float GetAngle(Location l1, Location l2)
-		{
-			float dX = l2.X - l1.X;
-			float dY = l2.Y - l1.Y;
-			return (float)Math.Atan2(dY, dX);
-		}
+        private float GetAngle(Location l1, Location l2)
+        {
+            float dX = l2.X - l1.X;
+            float dY = l2.Y - l1.Y;
+            return (float)Math.Atan2(dY, dX);
+        }
 
-		private float GetAngle(float x1, float y1, float x2, float y2)
-		{
-			float dX = x2 - x1;
-			float dY = y2 - y1;
-			return (float)Math.Atan2(dY, dX);
-		}
+        private float GetAngle(float x1, float y1, float x2, float y2)
+        {
+            float dX = x2 - x1;
+            float dY = y2 - y1;
+            return (float)Math.Atan2(dY, dX);
+        }
 
-		public virtual object Clone()
+        public virtual object Clone()
         {
             return new Location
             {

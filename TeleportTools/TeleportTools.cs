@@ -9,12 +9,10 @@ using Lib_K_Relay.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TeleportTools
 {
-    class TeleportState
+    internal class TeleportState
     {
         public int QuestId = -1;
         public Location QuestLocation = null;
@@ -34,11 +32,13 @@ namespace TeleportTools
         { return "Teleport Tools"; }
 
         public string GetDescription()
-        { return "Teleport to the player closest to your current quest using /tq." +
-                 "Teleport to a player without typing their full name with /tp"; }
+        {
+            return "Teleport to the player closest to your current quest using /tq." +
+                   "Teleport to a player without typing their full name with /tp";
+        }
 
         public string[] GetCommands()
-        { return new string[] { "/tq", "/tp <partial name>"}; }
+        { return new string[] { "/tq", "/tp <partial name>" }; }
 
         public void Initialize(Proxy proxy)
         {
@@ -56,7 +56,7 @@ namespace TeleportTools
 
         private void OnQuestObjId(Client client, Packet packet)
         {
-            _states[client].QuestId = (packet as QuestObjIdPacket).ObjectId; 
+            _states[client].QuestId = (packet as QuestObjIdPacket).ObjectId;
         }
 
         private void OnUpdate(Client client, Packet packet)

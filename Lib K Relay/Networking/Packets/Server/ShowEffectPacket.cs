@@ -1,10 +1,5 @@
 using Lib_K_Relay.Networking.Packets.DataObjects;
 using Lib_K_Relay.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.Server
 {
@@ -24,8 +19,8 @@ namespace Lib_K_Relay.Networking.Packets.Server
         {
             EffectType = (EffectType)r.ReadByte();
             TargetId = r.ReadInt32();
-            PosA =(Location) new Location().Read(r);
-            PosB = (Location) new Location().Read(r);
+            PosA = (Location)new Location().Read(r);
+            PosB = (Location)new Location().Read(r);
             Color = ARGB.Read(r);
             Duration = r.ReadSingle();
         }

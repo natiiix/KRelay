@@ -5,10 +5,6 @@ using Lib_K_Relay.Networking.Packets;
 using Lib_K_Relay.Networking.Packets.Server;
 using Lib_K_Relay.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Glow
 {
@@ -36,7 +32,7 @@ namespace Glow
         {
             Random r = new Random();
             int val = 0;
-            for (int i = 0; i < 10 ; i++)
+            for (int i = 0; i < 10; i++)
             {
                 val += r.Next(400000, 723411);
                 client.SendToClient(PluginUtils.CreateNotification(

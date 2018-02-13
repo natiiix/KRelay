@@ -1,21 +1,21 @@
-﻿using Lib_K_Relay.Networking.Packets;
+﻿using Lib_K_Relay.GameData.DataStructures;
+using Lib_K_Relay.Networking.Packets;
 using Lib_K_Relay.Networking.Packets.Client;
 using Lib_K_Relay.Networking.Packets.Server;
-using Lib_K_Relay.GameData.DataStructures;
 using Lib_K_Relay.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking
 {
     public class ReconnectHandler
     {
         private Proxy _proxy;
+
         public static event ChangeServerHandler ChangeDefault;
+
         public delegate void ChangeServerHandler(ServerStructure server);
 
         public void Attach(Proxy proxy)

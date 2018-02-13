@@ -1,8 +1,7 @@
-﻿using System;
-using System.Text;
+﻿using MetroFramework.Controls;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
-using MetroFramework.Controls;
 
 namespace K_Relay.Util
 {

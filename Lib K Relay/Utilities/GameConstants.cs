@@ -1,9 +1,5 @@
 using Lib_K_Relay.Networking.Packets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Utilities
 {
@@ -98,7 +94,7 @@ namespace Lib_K_Relay.Utilities
 
     public enum EffectType
     {
-		Unknown = 0,
+        Unknown = 0,
         Heal = 1,
         Teleport = 2,
         Stream = 3,

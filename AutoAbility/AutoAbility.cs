@@ -3,14 +3,9 @@ using Lib_K_Relay.Interface;
 using Lib_K_Relay.Networking;
 using Lib_K_Relay.Networking.Packets;
 using Lib_K_Relay.Networking.Packets.Client;
-using Lib_K_Relay.Networking.Packets.DataObjects;
-using Lib_K_Relay.Networking.Packets.Server;
 using Lib_K_Relay.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutoAbility
 {
@@ -28,10 +23,12 @@ namespace AutoAbility
         { return "Auto Ability"; }
 
         public string GetDescription()
-        { return "Automatically uses your abilities based on your class and your specified conditions:\n" +
-                 "Paladin: Automatically Seal Buff\n" +
-                 "Priest: Automatically Tome Buff and/or Heal\n" + 
-                 "Warrior: Automatically Helm Buff"; }
+        {
+            return "Automatically uses your abilities based on your class and your specified conditions:\n" +
+                   "Paladin: Automatically Seal Buff\n" +
+                   "Priest: Automatically Tome Buff and/or Heal\n" +
+                   "Warrior: Automatically Helm Buff";
+        }
 
         public string[] GetCommands()
         { return new string[] { "/aa on", "/aa off", "/aa settings" }; }
@@ -79,47 +76,47 @@ namespace AutoAbility
             switch (client.PlayerData.Class)
             {
                 case Classes.Paladin:
-                {
-                    if (!client.PlayerData.HasConditionEffect(ConditionEffects.Damaging) &&
-                        manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
-                        AutoAbilityConfig.Default.PaladinAutoBuff)
                     {
-                        SendUseItem(client);
+                        if (!client.PlayerData.HasConditionEffect(ConditionEffects.Damaging) &&
+                            manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
+                            AutoAbilityConfig.Default.PaladinAutoBuff)
+                        {
+                            SendUseItem(client);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case Classes.Priest:
-                {
-                    if ((!client.PlayerData.HasConditionEffect(ConditionEffects.Healing) &&
-                        manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
-                        AutoAbilityConfig.Default.PriestAutoBuff) ||
-                        (healthPercentage < AutoAbilityConfig.Default.RequiredHealthPercent &&
-                        AutoAbilityConfig.Default.PriestAutoHeal))
                     {
-                        SendUseItem(client);
+                        if ((!client.PlayerData.HasConditionEffect(ConditionEffects.Healing) &&
+                            manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
+                            AutoAbilityConfig.Default.PriestAutoBuff) ||
+                            (healthPercentage < AutoAbilityConfig.Default.RequiredHealthPercent &&
+                            AutoAbilityConfig.Default.PriestAutoHeal))
+                        {
+                            SendUseItem(client);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case Classes.Warrior:
-                {
-                    if (!client.PlayerData.HasConditionEffect(ConditionEffects.Berserk) &&
-                        manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
-                        AutoAbilityConfig.Default.WarriorAutoBuff)
                     {
-                        SendUseItem(client);
+                        if (!client.PlayerData.HasConditionEffect(ConditionEffects.Berserk) &&
+                            manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
+                            AutoAbilityConfig.Default.WarriorAutoBuff)
+                        {
+                            SendUseItem(client);
+                        }
+                        break;
                     }
-                    break;
-                }
                 case Classes.Rogue:
-                {
-                    if (!client.PlayerData.HasConditionEffect(ConditionEffects.Invisible) &&
-                        manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
-                        AutoAbilityConfig.Default.RogueAutoCloak)
                     {
-                        SendUseItem(client);
+                        if (!client.PlayerData.HasConditionEffect(ConditionEffects.Invisible) &&
+                            manaPercentage > AutoAbilityConfig.Default.RequiredManaPercent &&
+                            AutoAbilityConfig.Default.RogueAutoCloak)
+                        {
+                            SendUseItem(client);
+                        }
+                        break;
                     }
-                    break;
-                }
             }
         }
 

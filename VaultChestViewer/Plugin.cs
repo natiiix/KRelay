@@ -4,11 +4,8 @@ using Lib_K_Relay.Networking;
 using Lib_K_Relay.Networking.Packets.Client;
 using Lib_K_Relay.Networking.Packets.DataObjects;
 using Lib_K_Relay.Networking.Packets.Server;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace VaultChestViewer
 {
@@ -56,8 +53,8 @@ namespace VaultChestViewer
             if (this.m_currentGameId != -5) return;
 
             packet.ClientXML = packet.ClientXML.Concat(new[]
-				{
-					@"	<Objects>
+                {
+                    @"	<Objects>
 		<Object type=""0x0504"" id=""Vault Chest"">
 			<Class>Container</Class>
 			<Container/>
@@ -68,8 +65,8 @@ namespace VaultChestViewer
 			<SlotTypes>0, 0, 0, 0, 0, 0, 0, 0</SlotTypes>
 		</Object>
 	</Objects>"
-				}).ToArray();
-        }        
+                }).ToArray();
+        }
 
         private void OnUpdatePacket(Client client, UpdatePacket packet)
         {
@@ -99,13 +96,13 @@ namespace VaultChestViewer
             }
             string name = string.Format("Items: {0}/8", count);
             stats.Data = stats.Data.Concat(new StatData[]
-			{
-				new StatData 
+            {
+                new StatData
                 {
                      Id = StatsType.Name,
                      StringValue = name
                 }
-			}).ToArray();
+            }).ToArray();
         }
 
         private void ParseChestData(Status stats)
