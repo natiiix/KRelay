@@ -61,30 +61,37 @@ namespace Lib_K_Relay.Networking
             if (client.State.ACCID != null) return;
 
             State resolvedState = null;
-            State spoon_me = null;
+            State randomRealmState = null;
 
             foreach (State cstate in _proxy.States.Values)
+            {
                 if (cstate.ACCID == client.PlayerData.AccountId)
                 {
                     resolvedState = cstate;
-                    var Nut = _proxy.States.Values.Where(x => x.LastHello != null && x.LastHello.GameId == -3);
-                    spoon_me = Nut.Count() != 0 ? Nut.First() : null;
-                    if (spoon_me != null)
+                    randomRealmState = _proxy.States.Values.FirstOrDefault(x => x.LastHello != null && x.LastHello.GameId == -3);
+
+                    if (randomRealmState != null)
                     {
-                        resolvedState.ConTargetAddress = spoon_me.LastRealm.Host;
-                        resolvedState.LastRealm = spoon_me.LastRealm;
+                        resolvedState.ConTargetAddress = randomRealmState.LastRealm.Host;
+                        resolvedState.LastRealm = randomRealmState.LastRealm;
                     }
                 }
+            }
 
-            if (spoon_me != null)
-                _proxy.States.Remove(spoon_me.GUID);
+            if (randomRealmState != null)
+            {
+                _proxy.States.Remove(randomRealmState.GUID);
+            }
 
             if (resolvedState == null)
+            {
                 client.State.ACCID = client.PlayerData.AccountId;
+            }
             else
             {
                 foreach (var pair in client.State.States)
                     resolvedState[pair.Key] = pair.Value;
+
                 foreach (var pair in client.State.States)
                     resolvedState[pair.Key] = pair.Value;
 
