@@ -14,7 +14,9 @@ public class EmbeddedAssembly
     public static void Load(string embeddedResource, string fileName)
     {
         if (dic == null)
+        {
             dic = new Dictionary<string, Assembly>();
+        }
 
         byte[] ba = null;
         Assembly asm = null;
@@ -24,7 +26,9 @@ public class EmbeddedAssembly
         {
             // Either the file is not existed or it is not mark as embedded resource
             if (stm == null)
+            {
                 throw new Exception(embeddedResource + " is not found in Embedded Resources.");
+            }
 
             // Get byte[] from the file from embedded resource
             ba = new byte[(int) stm.Length];
@@ -88,10 +92,14 @@ public class EmbeddedAssembly
     public static Assembly Get(string assemblyFullName)
     {
         if (dic == null || dic.Count == 0)
+        {
             return null;
+        }
 
         if (dic.ContainsKey(assemblyFullName))
+        {
             return dic[assemblyFullName];
+        }
 
         return null;
     }

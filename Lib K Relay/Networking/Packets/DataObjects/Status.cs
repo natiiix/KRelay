@@ -35,7 +35,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
             w.Write((short)Data.Length);
 
             foreach (StatData statdata in Data)
+            {
                 statdata.Write(w);
+            }
         }
 
         public object Clone()

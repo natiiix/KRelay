@@ -35,7 +35,6 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
                 X = this.X,
                 Y = this.Y,
                 Type = this.Type
-                
             };
         }
 
