@@ -76,6 +76,10 @@ namespace Lib_K_Relay.Networking
                         resolvedState.LastRealm = randomRealmState.LastRealm;
                         _proxy.States.Remove(randomRealmState.GUID);
                     }
+                    else if (resolvedState.LastHello.GameId == -2)
+                    {
+                        resolvedState.ConTargetAddress = Proxy.DefaultServer;
+                    }
                 }
             }
 
