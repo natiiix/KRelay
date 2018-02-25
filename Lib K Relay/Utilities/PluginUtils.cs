@@ -159,7 +159,7 @@ namespace Lib_K_Relay.Utilities
         public static NotificationPacket CreateNotification(int objectId, int color, string message)
         {
             NotificationPacket notif = (NotificationPacket)Packet.Create(PacketType.NOTIFICATION);
-            notif.ObjectId = objectId;
+            notif.ObjectId = StealthConfig.Default.StealthEnabled ? 0 : objectId;
             notif.Message = "{\"key\":\"blank\",\"tokens\":{\"data\":\"" + message + "\"}}";
             notif.Color = color;
             return notif;
