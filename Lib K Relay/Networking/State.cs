@@ -17,9 +17,6 @@ namespace Lib_K_Relay.Networking
 
         public ReconnectPacket LastRealm = null;
         public ReconnectPacket LastDungeon = null;
-        public List<ReconnectPacket[]> LastRecons = new List<ReconnectPacket[]>();
-        public UsePortalPacket LastUsePortal = null;
-        public int LoadKeys = -1;
         public HelloPacket LastHello = null;
 
         public Dictionary<string, dynamic> States;

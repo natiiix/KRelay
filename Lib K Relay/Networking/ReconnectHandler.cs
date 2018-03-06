@@ -3,7 +3,6 @@ using Lib_K_Relay.Networking.Packets;
 using Lib_K_Relay.Networking.Packets.Client;
 using Lib_K_Relay.Networking.Packets.Server;
 using Lib_K_Relay.Utilities;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -25,24 +24,12 @@ namespace Lib_K_Relay.Networking
             proxy.HookPacket<CreateSuccessPacket>(OnCreateSuccess);
             proxy.HookPacket<ReconnectPacket>(OnReconnect);
             proxy.HookPacket<HelloPacket>(OnHello);
-            proxy.HookPacket<UsePortalPacket>(OnUsePortal);
-            proxy.HookPacket<FailurePacket>(OnFail);
 
             //proxy.HookCommand("con", OnConnectCommand); - Crazy Client overrides this anyways
             //proxy.HookCommand("connect", OnConnectCommand); - Crazy Client overrides this anyways too
             proxy.HookCommand("server", OnConnectCommand);
             proxy.HookCommand("recon", OnReconCommand);
             proxy.HookCommand("drecon", OnDreconCommand);
-        }
-        
-        private void OnFail(Client client, FailurePacket packet)
-        {
-            Console.WriteLine(packet.ErrorMessage);
-        }
-
-        private void OnUsePortal(Client client, UsePortalPacket packet)
-        {
-            client.State.LastUsePortal = packet;
         }
 
         private void OnHello(Client client, HelloPacket packet)
@@ -94,22 +81,7 @@ namespace Lib_K_Relay.Networking
             }
             else if (packet.Name != "" && !packet.Name.Contains("vault") && packet.GameId != -2)
             {
-                client.State.LoadKeys++;
-                if (client.State.LoadKeys == 0)
-                {
-                    client.State.LastRecons.Insert(0, new ReconnectPacket[6]);
-                }
-                else if (client.State.LoadKeys >= 6)
-                {
-                    client.State.LoadKeys = -1;
-                    goto dank;
-                }
-                client.State.LastRecons.First()[client.State.LoadKeys] = CloneReconnectPacket(client, packet);
-                Console.WriteLine("here");
-                packet.Send = false;
-                client.SendToServer(client.State.LastUsePortal);
-                dank:;
-                int meme = 0;
+                client.State.LastDungeon = CloneReconnectPacket(client, packet);
             }
 
             if (packet.Port != -1)
@@ -212,29 +184,9 @@ namespace Lib_K_Relay.Networking
 
         private void OnDreconCommand(Client client, string command, string[] args)
         {
-            if (client.State.LastRecons != null)
+            if (client.State.LastDungeon != null)
             {
-                try
-                {
-                    if (args.Count() == 0 || args[0] == "1")
-                    {
-                        SendReconnect(client, client.State.LastRecons.First().First());
-                        client.State.LastRecons.First().ToList().RemoveAt(0);
-                    }
-                    else
-                    {
-                        int index;
-                        if (int.TryParse(args[0], out index))
-                        {
-                            SendReconnect(client, client.State.LastRecons[index - 1].First());
-                            client.State.LastRecons[index - 1].ToList().RemoveAt(0);
-                        }
-                    }
-                }
-                catch
-                {
-                    client.SendToClient(PluginUtils.CreateNotification(client.ObjectId, "Dungeon Unknown/Keys used up"));
-                }
+                SendReconnect(client, client.State.LastDungeon);
             }
             else
             {
