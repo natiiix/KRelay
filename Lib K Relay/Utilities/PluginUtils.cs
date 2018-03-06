@@ -30,10 +30,10 @@ namespace Lib_K_Relay.Utilities
         /// <returns>If the operation was successful or not</returns>
         public static bool ProtectedInvoke(Action action, string errorProvider, Type filteredException)
         {
-#if DEBUG
-            action();
-            return true;
-#else
+//#if DEBUG
+            //action();
+            //return true;
+//#else
             try
             {
                 action();
@@ -47,7 +47,7 @@ namespace Lib_K_Relay.Utilities
                 }
                 return false;
             }
-#endif
+//endif
         }
 
         /// <summary>
