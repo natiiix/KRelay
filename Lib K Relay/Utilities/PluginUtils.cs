@@ -1,10 +1,7 @@
 ﻿using Lib_K_Relay.Networking.Packets;
 using Lib_K_Relay.Networking.Packets.Server;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,6 +30,10 @@ namespace Lib_K_Relay.Utilities
         /// <returns>If the operation was successful or not</returns>
         public static bool ProtectedInvoke(Action action, string errorProvider, Type filteredException)
         {
+#if DEBUG
+            action();
+            return true;
+#else
             try
             {
                 action();
@@ -41,9 +42,12 @@ namespace Lib_K_Relay.Utilities
             catch (Exception e)
             {
                 if (e.GetType() != filteredException)
+                {
                     LogPluginException(e, errorProvider);
+                }
                 return false;
             }
+#endif
         }
 
         /// <summary>
@@ -73,7 +77,10 @@ namespace Lib_K_Relay.Utilities
         /// <param name="message">Message to be logged</param>
         public static void Log(string sender, string message)
         {
-            if (sender.Length > 13) sender = sender.Substring(0, 13);
+            if (sender.Length > 13)
+            {
+                sender = sender.Substring(0, 13);
+            }
             sender += "]";
             Console.WriteLine(string.Format("[{0,-15} {1}", sender, message));
         }
@@ -152,7 +159,7 @@ namespace Lib_K_Relay.Utilities
         public static NotificationPacket CreateNotification(int objectId, int color, string message)
         {
             NotificationPacket notif = (NotificationPacket)Packet.Create(PacketType.NOTIFICATION);
-            notif.ObjectId = objectId;
+            notif.ObjectId = StealthConfig.Default.StealthEnabled ? 0 : objectId;
             notif.Message = "{\"key\":\"blank\",\"tokens\":{\"data\":\"" + message + "\"}}";
             notif.Color = color;
             return notif;

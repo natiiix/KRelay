@@ -1,18 +1,16 @@
-﻿using Lib_K_Relay.Networking.Packets.DataObjects;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets
 {
     public class PacketWriter : BinaryWriter
     {
         public PacketWriter(MemoryStream input)
-            : base(input) { }
+            : base(input)
+        {
+        }
 
         public override void Write(short value)
         {

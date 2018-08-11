@@ -1,20 +1,13 @@
 ﻿using Lib_K_Relay.GameData;
-using Lib_K_Relay.Utilities;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MapFilter
 {
     public partial class FrmMapFilterSettings : Form
     {
-        MapFilter _m;
+        private MapFilter _m;
 
         public FrmMapFilterSettings(MapFilter m)
         {
@@ -52,7 +45,7 @@ namespace MapFilter
         {
             string tile = "";
             string replacement = "";
-			var dict = GameData.Items.Map.ToDictionary(o => o.Value.Name, o => o.Key);
+            var dict = GameData.Items.Map.ToDictionary(o => o.Value.Name, o => o.Key);
             new FrmEnumerator(dict, "Choose the tile to replace...", (s) => tile = s).ShowDialog();
             new FrmEnumerator(dict, "Choose the replacement tile...", (s) => replacement = s).ShowDialog();
 
@@ -75,8 +68,8 @@ namespace MapFilter
         {
             string obj = "";
             string replacement = "";
-			var dict = GameData.Objects.Map.ToDictionary(o => o.Value.Name, o => o.Key);
-			new FrmEnumerator(dict, "Choose the object to replace...", (s) => obj = s).ShowDialog();
+            var dict = GameData.Objects.Map.ToDictionary(o => o.Value.Name, o => o.Key);
+            new FrmEnumerator(dict, "Choose the object to replace...", (s) => obj = s).ShowDialog();
             new FrmEnumerator(dict, "Choose the replacement object...", (s) => replacement = s).ShowDialog();
 
             if (obj != "" && replacement != "")

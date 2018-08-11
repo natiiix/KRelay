@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lib_K_Relay.Networking.Packets.DataObjects
+﻿namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
     public class Tile : IDataObject
     {
@@ -35,7 +29,6 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
                 X = this.X,
                 Y = this.Y,
                 Type = this.Type
-                
             };
         }
 

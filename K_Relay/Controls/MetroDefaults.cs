@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MetroFramework
+﻿namespace MetroFramework
 {
     internal static class MetroDefaults
     {

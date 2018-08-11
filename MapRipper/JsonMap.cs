@@ -19,19 +19,15 @@
 //LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //SOFTWARE.
+using Ionic.Zlib;
+using Lib_K_Relay.GameData;
+using Lib_K_Relay.Networking.Packets;
+using Lib_K_Relay.Networking.Packets.DataObjects;
+using Lib_K_Relay.Networking.Packets.Server;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using Newtonsoft.Json;
-using Ionic.Zlib;
-using System.Reflection;
-using Lib_K_Relay.Networking.Packets.DataObjects;
-using Lib_K_Relay.Utilities;
-using Lib_K_Relay.Networking.Packets;
-using Lib_K_Relay.Networking.Packets.Server;
-using Lib_K_Relay.GameData;
 
 namespace MapRipper
 {
@@ -76,12 +72,14 @@ namespace MapRipper
             public string name;
             public string id;
         }
+
         private struct loc
         {
             public string ground;
             public obj[] objs;
             public obj[] regions;
         }
+
         private struct json_dat
         {
             public byte[] data;
@@ -204,14 +202,14 @@ namespace MapRipper
 
         private string GetEntityId(short type)
         {
-			if (GameData.Tiles.Map.ContainsKey((ushort)type)) return GameData.Tiles.ByID((ushort)type).Name;
-			if (GameData.Objects.Map.ContainsKey((ushort)type)) return GameData.Objects.ByID((ushort)type).Name;
-			throw new Exception("Invalid value: " + type);
+            if (GameData.Tiles.Map.ContainsKey((ushort)type)) return GameData.Tiles.ByID((ushort)type).Name;
+            if (GameData.Objects.Map.ContainsKey((ushort)type)) return GameData.Objects.ByID((ushort)type).Name;
+            throw new Exception("Invalid value: " + type);
         }
 
         private string GetTileId(ushort type)
         {
-			return GameData.Tiles.ByID(type).Name;
+            return GameData.Tiles.ByID(type).Name;
         }
     }
 }

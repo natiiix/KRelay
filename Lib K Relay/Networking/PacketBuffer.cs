@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking
 {
-    class PacketBuffer
+    internal class PacketBuffer
     {
         public int Index = 0;
         public byte[] Bytes;
@@ -19,7 +15,9 @@ namespace Lib_K_Relay.Networking
         public void Resize(int newSize)
         {
             if (newSize > 1048576)
+            {
                 throw new ArgumentException("New buffer size is too large");
+            }
 
             byte[] old = Bytes;
             Bytes = new byte[newSize];

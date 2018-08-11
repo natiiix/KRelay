@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lib_K_Relay.Networking.Packets.DataObjects
+﻿namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
     public class Status : IDataObject
     {
@@ -35,7 +29,9 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
             w.Write((short)Data.Length);
 
             foreach (StatData statdata in Data)
+            {
                 statdata.Write(w);
+            }
         }
 
         public object Clone()

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.Client
 {
@@ -24,7 +20,7 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public string PlayPlatform;
         public string PlatformToken;
         public string UserToken;
-        
+
         public override PacketType Type
         { get { return PacketType.HELLO; } }
 

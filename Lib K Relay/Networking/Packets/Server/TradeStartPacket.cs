@@ -1,9 +1,4 @@
 ﻿using Lib_K_Relay.Networking.Packets.DataObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.Server
 {
@@ -20,7 +15,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         {
             MyItems = new Item[r.ReadInt16()];
             for (int i = 0; i < MyItems.Length; i++)
-                MyItems[i] = (Item) new Item().Read(r);
+                MyItems[i] = (Item)new Item().Read(r);
 
             YourName = r.ReadString();
             YourItems = new Item[r.ReadInt16()];

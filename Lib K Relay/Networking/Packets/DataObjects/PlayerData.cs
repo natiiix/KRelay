@@ -1,11 +1,7 @@
 ﻿using Lib_K_Relay.Networking.Packets.Server;
 using Lib_K_Relay.Utilities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
@@ -24,7 +20,12 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
         public int XpGoal;
         public int Xp;
         public int Level = 1;
-        public int[] Slot = { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 };
+
+        public int[] Slot =
+        {
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1
+        };
+
         public int[] BackPack = { -1, -1, -1, -1, -1, -1, -1, -1 };
         public int Attack;
         public int Defense;
@@ -61,6 +62,7 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
         public bool HasBackpack;
         public int Skin;
         public Location Pos = new Location();
+
         // Custom
         public Classes Class;
 
@@ -83,23 +85,29 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
         public void Parse(UpdatePacket update)
         {
             foreach (Entity newObject in update.NewObjs)
+            {
                 if (newObject.Status.ObjectId == OwnerObjectId)
                 {
                     Class = (Classes)newObject.ObjectType;
                     foreach (StatData data in newObject.Status.Data)
                         Parse(data.Id, data.IntValue, data.StringValue);
                 }
+            }
         }
 
         public void Parse(NewTickPacket newTick)
         {
             foreach (Status status in newTick.Statuses)
+            {
                 if (status.ObjectId == OwnerObjectId)
+                {
                     foreach (StatData data in status.Data)
                     {
                         Pos = status.Position;
                         Parse(data.Id, data.IntValue, data.StringValue);
                     }
+                }
+            }
         }
 
         public void Parse(int id, int intValue, string stringValue)
@@ -188,8 +196,13 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
             StringBuilder s = new StringBuilder();
             s.Append(OwnerObjectId + "'s PlayerData Instance");
             foreach (FieldInfo f in fields)
+            {
                 if (f.GetValue(this) != null)
+                {
                     s.Append("\n\t" + f.Name + " => " + f.GetValue(this));
+                }
+            }
+
             return s.ToString();
         }
     }

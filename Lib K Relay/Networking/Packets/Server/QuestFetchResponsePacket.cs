@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lib_K_Relay.Networking.Packets.Server
+﻿namespace Lib_K_Relay.Networking.Packets.Server
 {
     public class QuestFetchResponsePacket : Packet
     {
@@ -12,6 +6,7 @@ namespace Lib_K_Relay.Networking.Packets.Server
         public string Goal;
         public string Description;
         public string Image;
+
         public override PacketType Type
         { get { return PacketType.QUESTFETCHRESPONSE; } }
 

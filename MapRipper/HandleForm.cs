@@ -2,14 +2,7 @@
 using MetroFramework.Components;
 using MetroFramework.Forms;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MapRipper
@@ -45,7 +38,7 @@ namespace MapRipper
             }
         }
 
-        void Map_TilesAdded(int currentTiles)
+        private void Map_TilesAdded(int currentTiles)
         {
             this.Invoke(new Action(() =>
             {
@@ -82,7 +75,6 @@ namespace MapRipper
 
             private MetroColorStyle m_colorStyle;
             private MetroThemeStyle m_themeStyle;
-            
 
             public FixedStyleManager(MetroForm form)
             {

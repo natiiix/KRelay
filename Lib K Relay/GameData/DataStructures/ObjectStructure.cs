@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Lib_K_Relay.GameData.DataStructures
@@ -27,7 +23,11 @@ namespace Lib_K_Relay.GameData.DataStructures
         /// <summary>
         /// The numerical identifier for this object
         /// </summary>
-        public ushort ID { get; private set; }
+        public ushort ID
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// What kind of object this is
@@ -157,7 +157,11 @@ namespace Lib_K_Relay.GameData.DataStructures
         /// <summary>
         /// The text identifier for this object
         /// </summary>
-        public string Name { get; private set; }
+        public string Name
+        {
+            get;
+            private set;
+        }
 
         public ObjectStructure(XElement obj)
         {

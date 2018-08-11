@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Lib_K_Relay.Networking.Packets.Client
+﻿namespace Lib_K_Relay.Networking.Packets.Client
 {
     public class BuyPacket : Packet
     {
         public int ObjectId;
-		public int Quantity;
+        public int Quantity;
 
         public override PacketType Type
         { get { return PacketType.BUY; } }
@@ -17,13 +11,13 @@ namespace Lib_K_Relay.Networking.Packets.Client
         public override void Read(PacketReader r)
         {
             ObjectId = r.ReadInt32();
-			Quantity = r.ReadInt32();
+            Quantity = r.ReadInt32();
         }
 
         public override void Write(PacketWriter w)
         {
             w.Write(ObjectId);
-			w.Write(Quantity);
+            w.Write(Quantity);
         }
     }
 }

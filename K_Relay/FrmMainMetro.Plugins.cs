@@ -1,21 +1,15 @@
-﻿using System;
+﻿using Lib_K_Relay.Interface;
+using Lib_K_Relay.Utilities;
+using MetroFramework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using K_Relay.Util;
-using Lib_K_Relay.Interface;
-using Lib_K_Relay.Utilities;
-using MetroFramework;
-using MetroFramework.Controls;
-using MetroFramework.Drawing;
 
 namespace K_Relay
 {
@@ -49,7 +43,9 @@ namespace K_Relay
                             Type tInterface = pType.GetInterface("Lib_K_Relay.Interface.IPlugin");
 
                             if (tInterface != null)
+                            {
                                 AttachPlugin(pType);
+                            }
                         }
                         catch (Exception e)
                         {
@@ -81,7 +77,7 @@ namespace K_Relay
                     MessageBoxIcon.Error);
             }
         }
-        
+
         private void listPlugins_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listPlugins.ListBox.SelectedItem != null)
@@ -125,7 +121,9 @@ namespace K_Relay
             {
                 tbxPluginInfo.AppendText("\n\nCommands:", Color.DodgerBlue, true);
                 foreach (string command in commands)
+                {
                     tbxPluginInfo.AppendText("\n  " + command, Color.Empty, false);
+                }
             }
         }
     }

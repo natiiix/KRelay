@@ -4,12 +4,8 @@ using MetroFramework.Controls;
 using MetroFramework.Drawing;
 using MetroFramework.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace K_Relay.Controls
@@ -29,13 +25,14 @@ namespace K_Relay.Controls
 
             InitializeBaseListBox();
             UpdateBaseListBox();
-            AddEventHandler();       
+            AddEventHandler();
         }
 
         #region Interface
 
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaintBackground;
+
         protected virtual void OnCustomPaintBackground(MetroPaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint) && CustomPaintBackground != null)
@@ -46,6 +43,7 @@ namespace K_Relay.Controls
 
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaint;
+
         protected virtual void OnCustomPaint(MetroPaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint) && CustomPaint != null)
@@ -56,6 +54,7 @@ namespace K_Relay.Controls
 
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public event EventHandler<MetroPaintEventArgs> CustomPaintForeground;
+
         protected virtual void OnCustomPaintForeground(MetroPaintEventArgs e)
         {
             if (GetStyle(ControlStyles.UserPaint) && CustomPaintForeground != null)
@@ -65,6 +64,7 @@ namespace K_Relay.Controls
         }
 
         private MetroColorStyle metroStyle = MetroColorStyle.Default;
+
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         [DefaultValue(MetroColorStyle.Default)]
         public MetroColorStyle Style
@@ -91,6 +91,7 @@ namespace K_Relay.Controls
         }
 
         private MetroThemeStyle metroTheme = MetroThemeStyle.Default;
+
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         [DefaultValue(MetroThemeStyle.Default)]
         public MetroThemeStyle Theme
@@ -117,6 +118,7 @@ namespace K_Relay.Controls
         }
 
         private MetroStyleManager metroStyleManager = null;
+
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public MetroStyleManager StyleManager
@@ -126,6 +128,7 @@ namespace K_Relay.Controls
         }
 
         private bool useCustomBackColor = false;
+
         [DefaultValue(false)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseCustomBackColor
@@ -135,7 +138,7 @@ namespace K_Relay.Controls
         }
 
         private bool useCustomForeColor = false;
-    
+
         [DefaultValue(false)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseCustomForeColor
@@ -145,6 +148,7 @@ namespace K_Relay.Controls
         }
 
         private bool useStyleColors = false;
+
         [DefaultValue(false)]
         [Category(MetroDefaults.PropertyCategory.Appearance)]
         public bool UseStyleColors
@@ -162,7 +166,7 @@ namespace K_Relay.Controls
             set { SetStyle(ControlStyles.Selectable, value); }
         }
 
-        #endregion
+        #endregion Interface
 
         #region Paint Methods
 
@@ -235,7 +239,7 @@ namespace K_Relay.Controls
             }
         }
 
-        #endregion
+        #endregion Paint Methods
 
         #region Overridden Methods
 
@@ -268,7 +272,7 @@ namespace K_Relay.Controls
             scrollBar.SmallChange = 15;
         }
 
-        #endregion
+        #endregion Overridden Methods
 
         private void InitializeBaseListBox()
         {
@@ -323,11 +327,10 @@ namespace K_Relay.Controls
                 SelectedIndexChanged(sender, e);
         }
 
-
-
         #region Routing Methods
 
         public event EventHandler AcceptsTabChanged;
+
         private void BaseListBoxAcceptsTabChanged(object sender, EventArgs e)
         {
             if (AcceptsTabChanged != null)
@@ -394,7 +397,7 @@ namespace K_Relay.Controls
             base.OnTextChanged(e);
         }
 
-        #endregion
+        #endregion Routing Methods
 
         public BorderStyle BorderStyle
         {

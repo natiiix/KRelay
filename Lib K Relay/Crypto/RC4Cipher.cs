@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Crypto
 {
@@ -90,7 +87,9 @@ namespace Lib_K_Relay.Crypto
         public static byte[] HexStringToBytes(string key)
         {
             if (key.Length % 2 != 0)
+            {
                 throw new ArgumentException("Invalid hex string!");
+            }
 
             byte[] bytes = new byte[key.Length / 2];
             char[] c = key.ToCharArray();

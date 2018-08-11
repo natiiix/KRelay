@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking.Packets.DataObjects
 {
@@ -169,13 +165,19 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
         {
             if (this == StatsType.Name || this == StatsType.AccountId || this == StatsType.OwnerAccountId
                || this == StatsType.GuildName || this == StatsType.PetName)
+            {
                 return true;
+            }
+
             return false;
         }
 
         public static implicit operator StatsType(int type)
         {
-            if (type > byte.MaxValue) throw new Exception("Not a valid StatData number.");
+            if (type > byte.MaxValue)
+            {
+                throw new Exception("Not a valid StatData number.");
+            }
             return new StatsType((byte)type);
         }
 
@@ -186,7 +188,10 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
 
         public static bool operator ==(StatsType type, int id)
         {
-            if (id > byte.MaxValue) throw new Exception("Not a valid StatData number.");
+            if (id > byte.MaxValue)
+            {
+                throw new Exception("Not a valid StatData number.");
+            }
             return type.m_type == (byte)id;
         }
 
@@ -197,7 +202,10 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
 
         public static bool operator !=(StatsType type, int id)
         {
-            if (id > byte.MaxValue) throw new Exception("Not a valid StatData number.");
+            if (id > byte.MaxValue)
+            {
+                throw new Exception("Not a valid StatData number.");
+            }
             return type.m_type != (byte)id;
         }
 
@@ -233,9 +241,13 @@ namespace Lib_K_Relay.Networking.Packets.DataObjects
 
         public override bool Equals(object obj)
         {
-            if (!(obj is StatsType)) return false;
+            if (!(obj is StatsType))
+            {
+                return false;
+            }
             return this == (StatsType)obj;
         }
+
         public override string ToString()
         {
             return m_type.ToString();

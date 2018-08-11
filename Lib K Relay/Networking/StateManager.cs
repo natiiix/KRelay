@@ -2,10 +2,7 @@
 using Lib_K_Relay.Networking.Packets.DataObjects;
 using Lib_K_Relay.Networking.Packets.Server;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lib_K_Relay.Networking
 {
@@ -58,22 +55,49 @@ namespace Lib_K_Relay.Networking
         private void OnUpdate(Client client, UpdatePacket packet)
         {
             client.PlayerData.Parse(packet);
-            if (client.State.ACCID != null) return;
+            if (client.State.ACCID != null)
+            {
+                return;
+            }
 
             State resolvedState = null;
+            State randomRealmState = null;
 
-            foreach (State cstate in _proxy.States.Values)
+            foreach (State cstate in _proxy.States.Values.ToList())
+            {
                 if (cstate.ACCID == client.PlayerData.AccountId)
+                {
                     resolvedState = cstate;
+                    randomRealmState = _proxy.States.Values.FirstOrDefault(x => x.LastHello != null && x.LastHello.GameId == -3);
+
+                    if (randomRealmState != null)
+                    {
+                        resolvedState.ConTargetAddress = randomRealmState.LastRealm.Host;
+                        resolvedState.LastRealm = randomRealmState.LastRealm;
+                        _proxy.States.Remove(randomRealmState.GUID);
+                    }
+                    else if (resolvedState.LastHello.GameId == -2 && ((MapInfoPacket)client.State["MapInfo"]).Name == "Nexus")
+                    {
+                        resolvedState.ConTargetAddress = Proxy.DefaultServer;
+                    }
+                }
+            }
 
             if (resolvedState == null)
+            {
                 client.State.ACCID = client.PlayerData.AccountId;
+            }
             else
             {
                 foreach (var pair in client.State.States)
+                {
                     resolvedState[pair.Key] = pair.Value;
+                }
+
                 foreach (var pair in client.State.States)
+                {
                     resolvedState[pair.Key] = pair.Value;
+                }
 
                 client.State = resolvedState;
             }

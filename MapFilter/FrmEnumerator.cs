@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MapFilter
@@ -36,7 +30,7 @@ namespace MapFilter
         {
             listItems.SuspendLayout();
             listItems.Items.Clear();
-            foreach (string key in _enumeration.Keys) 
+            foreach (string key in _enumeration.Keys)
                 if (key.ToLower().Contains(tbxSearch.Text.ToLower()))
                     listItems.Items.Add(key);
             listItems.ResumeLayout();
@@ -45,7 +39,7 @@ namespace MapFilter
         private void listItems_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listItems.SelectedItem != null)
-            _callback(listItems.SelectedItem.ToString());
+                _callback(listItems.SelectedItem.ToString());
             this.Close();
         }
     }

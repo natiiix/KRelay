@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace Lib_K_Relay.GameData.DataStructures
@@ -12,7 +8,11 @@ namespace Lib_K_Relay.GameData.DataStructures
         /// <summary>
         /// The numerical identifier for this projectile
         /// </summary>
-        public byte ID { get; private set; }
+        public byte ID
+        {
+            get;
+            private set;
+        }
 
         /// <summary>
         /// How much damage the projectile deals
@@ -56,7 +56,11 @@ namespace Lib_K_Relay.GameData.DataStructures
         /// <summary>
         /// The text identifier for this projectile
         /// </summary>
-        public string Name { get; private set; }
+        public string Name
+        {
+            get;
+            private set;
+        }
 
         public ProjectileStructure(XElement projectile)
         {

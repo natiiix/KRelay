@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using K_Relay.Util;
+using Lib_K_Relay;
+using Lib_K_Relay.GameData;
+using Lib_K_Relay.Networking;
+using Lib_K_Relay.Utilities;
+using MetroFramework.Drawing;
+using MetroFramework.Forms;
+using System;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using K_Relay.Util;
-using Lib_K_Relay;
-using Lib_K_Relay.Networking;
-using Lib_K_Relay.Networking.Packets;
-using Lib_K_Relay.Utilities;
-using MetroFramework.Forms;
-using MetroFramework.Drawing;
-using Lib_K_Relay.GameData;
-using Lib_K_Relay.GameData.DataStructures;
 
 namespace K_Relay
 {
@@ -38,6 +33,8 @@ namespace K_Relay
 
         private async void FrmMainMetro_Load(object sender, EventArgs e)
         {
+            ReconnectHandler.ChangeDefault += ChangeServer;
+
             await Task.Run(() =>
             {
                 GameData.Load();
@@ -52,15 +49,21 @@ namespace K_Relay
             InitPlugins();
 
             if (GameData.Servers.Map.Where(s => s.Value.Name == (string)lstServers.SelectedItem).Any())
+            {
                 Proxy.DefaultServer = GameData.Servers.ByName((string)lstServers.SelectedItem).Address;
+            }
             else
+            {
                 PluginUtils.Log("K Relay", "Default server wasn't found, using USWest.");
+            }
 
             PluginUtils.Log("K Relay", "Initialization complete.");
 
             btnToggleProxy.Enabled = true;
             if (Config.Default.StartProxyByDefault)
+            {
                 btnToggleProxy_Click(null, null);
+            }
         }
 
         private void m_themeManager_OnStyleChanged(object sender, EventArgs e)
