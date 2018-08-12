@@ -2,7 +2,7 @@
 ## KRelay 1.5.0 | RotMG 27.7.X12.1
 ### A modular Realm of the Mad God man-in-the-middle Proxy
 
-![Screenshot](/Screenshot.png) ![Logo](/Icon.ico)
+![Screenshot](/Screenshot.png) ![Logo](/K-Relay/Icon.ico)
 -----------------------------------------------------------
 
 ##Plugin Documentation
