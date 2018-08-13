@@ -201,5 +201,23 @@ namespace Lib_K_Relay.Utilities
             tpacket.Text = message;
             return tpacket;
         }
+
+        /// <summary>
+        /// Creates an in-game message with the error format and coloring.
+        /// </summary>
+        /// <param name="message">Message text</param>
+        /// <returns></returns>
+        public static TextPacket CreateErrorNotification(string message)
+        {
+            TextPacket tpacket = Packet.Create<TextPacket>(PacketType.TEXT);
+            tpacket.BubbleTime = 0;
+            tpacket.CleanText = message;
+            tpacket.Name = "*Error*";
+            tpacket.NumStars = -1;
+            tpacket.ObjectId = -1;
+            tpacket.Recipient = string.Empty;
+            tpacket.Text = message;
+            return tpacket;
+        }
     }
 }
