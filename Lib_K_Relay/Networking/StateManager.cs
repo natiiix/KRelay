@@ -39,7 +39,7 @@ namespace Lib_K_Relay.Networking
                 Y = packet.Position.Y - 0.3f * (float)Math.Sin(packet.Angle)
             };
         }
-        int obect = 0;
+
         private void OnNewTick(Client client, NewTickPacket packet)
         {
             client.PlayerData.Parse(packet);
@@ -115,7 +115,6 @@ namespace Lib_K_Relay.Networking
 
                 client.State = resolvedState;
             }
-
 
             if (packet.NewObjs.Select(x => x.Status.ObjectId).Contains(client.PlayerData.OwnerObjectId))
             {
