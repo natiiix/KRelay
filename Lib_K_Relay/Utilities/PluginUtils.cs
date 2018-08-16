@@ -189,7 +189,7 @@ namespace Lib_K_Relay.Utilities
         /// </summary>
         /// <param name="message">Message text</param>
         /// <returns></returns>
-        public static TextPacket CreateAnnouncement(string message)
+        public static TextPacket CreateAnnouncementNotification(string message)
         {
             TextPacket tpacket = Packet.Create<TextPacket>(PacketType.TEXT);
             tpacket.BubbleTime = 0;
